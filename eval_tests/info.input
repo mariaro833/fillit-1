@@ -1,0 +1,95 @@
+
+/*
+
+27648 ==
+0b
+0110
+1100
+0000
+0000
+
+.##.
+##..
+....
+....
+
+	.##.##..........
+0b0000000000000000
+	.##.##..........
+0b00000x0000000000 -> index 10
+0x1:
+0b0000000000000001
+-> 0x1 << 10:
+0b0000010000000000
+tetrimino | 0b0000010000000000
+
+....
+..##
+.##.
+....
+
+
+*/
+
+/*
+
+A
+###.
+#...
+....
+....
+
+B
+##..
+.##.
+....
+....
+
+C
+.#..
+.#..
+##..
+....
+
+Tetrimino has 4 squares -> calculate the least square that it can be.
+	1:		4		4		2^2
+	2:		8		9		3^2
+	3:		12		16		4^2
+	4:		16		16		4^2
+	5:		20		25		5^2
+	...
+	26:		104		121		11^2 <-- might not be the largest solution
+
+AAAbb
+A...bb
+....
+....
+
+AAAB
+ABBB
+....
+....
+
+Function to determine the first index that is # or 1 in the binary numeral.
+struct s_tetrimino which includes the alphabet, and the dimensions
+
+Solver function which attempts to fit the piece.
+
+unsigned long has 64 bits
+long double might have 128 bits?
+
+
+
+AAABB......
+A...BB.....
+...........
+...........
+...........
+...........
+...........
+...........
+...........
+...........
+...........
+
+*/
