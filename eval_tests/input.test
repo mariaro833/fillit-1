@@ -1,0 +1,258 @@
+
+
+
+
+
+
+
+
+unsigned long
+square of 5 (25)
+00000
+00000
+00000
+00000
+00000
+
+0ABB0
+0ABB0
+AA000
+00000
+00000
+
+.A..
+.A..
+AA..
+....
+short -> unsigned long
+0100
+0100
+1100
+0000
+
+01000 padding
+01000
+11000
+00000
+
+CCCC
+....
+....
+....
+
+11110 padding for 5 width
+00000
+00000
+00000
+
+1111 0000 0000 0000
+0001 1110 0000 0000
+
+0ABB0 0ABB0 AA000 00000 00000
+00001 11100 00000 00000 00000 &
+00000 01100 00000 00000 00000 != 0
+
+shift right and back left and check if there is a loss compared to previous
+
+00001
+11100
+00000
+00000
+00000
+
+
+0ABBCCCC 0000 0000 (0000) right-shifted by the index (4)
+0ABB0
+AA000
+00000
+00000
+
+0ABBC
+0ABBC
+AA00C
+0000C
+00000
+
+.#..
+.#..
+.#..
+.#..
+= 0100 0100 0100 0100 >> 2 = 0001 0001 0001 0001
+
+
+#...
+#...
+#...
+#...
+
+1000 1000 1000 1000
+reversed
+0001 0001 0001 0001 >> 4
+0000 0001 0001 0001 0001
+
+
+0001 1) shift >> 1 
+0000  &
+0000
+
+validation with left shift
+after validation if we lost some # we will try to shift >> index = 4 (?)
+
+0001 
+0001 &
+0001
+
+0001 
+0001 
+
+0001
+0001
+
+we know the index (4) and width (5) of the square
+01234
+
+C|CCC 0|0|00 00|0|0
+1 000 0 1 00 00 1 0 & (bit-mask generated with loop)
+1 000 0 0 00 00 0 0 << index (4) -> compare against known tetriminos
+
+0123 C|
+CCC0|0|
+0000|0|0
+
+
+square:
+x0000 (index 0, width 5)
+00000
+00000
+00000
+00000
+
+A...0
+A...0
+A...0
+A...0
+
+A...A...A...A... 16-bit value
+-> transform into long
+A...A
+...A.
+..A..
+.
+
+A...0
+A...0
+A...0
+A...
+
+
+
+A...0A...0A...0A...0 padded zeros
+11110111101111011110 doesn't correspond to any known tetrimino
+
+
+
+
+
+####
+....
+....
+....
+
+validation:
+	read 5 bytes at a time
+	check there is a newline at the last index
+
+
+
+
+.#..
+##..
+#...
+....
+
+.#.. ##.. #... .... >> 12
+---- ---- ---- .#.. (##.. #... ....)
+0000 0000 0000 1111 &
+0000 0000 0000 0100
+
+0000 0000 0000 0000 0000 0000 0000 0100
+
+.#.. ##.. #... ....
+0100 1100 1000 0000, board_width == 7 => padding = 3, index == 2
+
+
+
+0100000 1100000 1000000 0000000
+
+
+AAx0000 index == 2 (x)
+AA00000
+0000000
+0000000
+0000000
+0000000
+0000000
+
+
+0100000
+1100000
+1000000
+0000000 >> 1 (0 at the first index -> reduce index with 1)
+
+-010000
+0110000
+0100000
+0000000 (0)
+
+bitwise AND (&) with the board
+-> if result is not 0 something overlaps
+ -> move to next position in recursion
+
+
+
+unsigned long   pad_short(short tetrimino, unsigned long index, unsigned char board_width)
+{
+    unsigned char   t;
+    unsigned char   tetrimino_line;
+    unsigned long   tetrilong;
+    unsigned char   padding;
+
+
+    t = sizeof(short); //16
+    if (board_width > 4)
+    {
+        padding = board_width - 4;
+        while (t)
+        {
+            t -= 4;
+            tetrimino_line = (tetrimino >> t) & 0b1111; //12, 8, 4, 0
+            tetrilong = (tetrilong << (index + 16 - t)) ^ tetrimino_line;
+            tetrilong = tetrilong << padding;
+        }
+        return ();
+    }
+    else
+        return (debug_error());
+}
+
+        index       
+|-------------------|.#..|---|##..|---|#...|---|....
+
+board_width == 7, padding == 3
+|.#..|---
+|##..|---
+|#...|---
+|....
+
+
+
+pad until 5 characters with 0
+
+1 ->   00001
+100 -> 00100
+
+
+
+
+
+

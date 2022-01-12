@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/11 17:48:54 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/12 14:44:13 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	open_input(const char *filename)
 	return (open(filename, O_RDONLY));
 }
 
-static short	*get_tetriminos(int fd)
+static short	*get_tetriminos(int fd, unsigned char *board_size)
 {
 	char			**tetriminos[26];
 	unsigned char	count;
@@ -38,9 +38,12 @@ static short	*get_tetriminos(int fd)
 
 static int	fillit(int fd)
 {
-	short	tetriminos;
+	short			tetriminos;
+	long			bitarray[4];
+	unsigned char	board_size;
 
-	tetriminos = get_tetriminos(fd);
+	tetriminos = get_tetriminos(fd, &board_size);
+	solution = solve(bitarray, tetriminos, board_size);
 }
 
 int	main(int argc, char **argv)
