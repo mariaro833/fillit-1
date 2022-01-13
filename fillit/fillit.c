@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/12 14:44:13 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/13 14:16:19 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,19 @@ static short	*get_tetriminos(int fd, unsigned char *board_size)
 	}
 	if (status == -1 || count < 1 || count > 26)
 		return (error());
+	*board_size = min_board(count);
 	while (count--)
 		convert_to_short(tetriminos[count]);
 }
 
 static int	fillit(int fd)
 {
-	short			tetriminos;
-	long			bitarray[4];
-	unsigned char	board_size;
+	short	*tetriminos;
+	size_t	board_size;
 
 	tetriminos = get_tetriminos(fd, &board_size);
-	solution = solve(bitarray, tetriminos, board_size);
+	bitarray(board_size, FETCH);
+	solution = solve(tetriminos);
 }
 
 int	main(int argc, char **argv)
