@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:49:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/13 12:39:30 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/14 15:52:33 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,13 @@ unsigned short	min_board(short *tetriminos)
 		if (ft_strchr == \n)
 	}*/
 
-	size = ((line / 4) * 6) << 2;
-	
 
+    size_t  board_size;
+
+    board_size = 0;
+    while (board_size * board_size < 4 * tetrimino_count)
+        board_size++;
+    return (board_size * board_size);
 }
 
 
@@ -55,16 +59,90 @@ char	*display_solution_board(long **bitarray, short *tetriminos)
 
 }
 
+#define FETCH 0b01
+#define CLEAR 0b10
 
-char	*solve(long **bitarray, short *tetriminos)
+typedef struct  s_bitarray
+{
+    unsigned long  *arr;
+    size_t          len;
+}   t_bitarray;
+
+t_bitarray  *bitarray(size_t size, unsigned char flag)
+{
+    static t_bitarray   *bitarr;
+
+    if (flag & FETCH)
+    {
+        if (!bitarr)
+            bitarr = bitarrnew(size);
+    }
+    else if (flag & CLEAR)
+    {
+        bitarrdel(&bitarr);
+    }
+    return (bitarr);
+}
+
+void    bitarrzero(t_bitarray *bitarr)
+{
+    size_t  idx;
+
+    idx = 0;
+    while (idx < bitarr->len)
+        bitarr->arr[idx++] = 0UL;
+}
+
+/*
+bitcount = size
+ul_size = sizeof(unsigned long) == 8UL
+bitcount == 64
+    bitcount / ul_size
+    !!(bitcount % ul_size)
+
+    64 / 8UL == 8
+    !!(64 % 8UL) == !!(0) == !1 == 0
+
+bitcount == 65
+    66 / 8UL == 8
+    !!(66 % 8UL) == !!(2) == !0 == 1
+*/
+
+size_t  ceiling_division(size_t dividend, size_t divisor)
+{
+    size_t  division;
+    size_t  remanant_truth;
+
+    division = size / sizeof(unsigned long);
+    remanant_truth = !!(size % sizeof(unsigned long));
+    return (division + remnant_truth);
+}
+
+t_bitarray  *bitarrnew(size_t size)
+{
+    t_bitarray  *bitarr;
+
+    bitarr = (t_bitarray *)ft_memalloc(sizeof(t_bitarray));
+    if (!bitarr)
+        return (NULL);
+    bitarr->len = ceiling_division(size, sizeof(unsigned long));
+    bitarr->arr = (unsigned long *)malloc(sizeof(unsigned long) * bitarr->len);
+    if (!bitarr->arr)
+        return (NULL);
+    bitarrzero(bitarr);
+    return (bitarr);
+}
+
+
+char	*solve(short *tetriminos, size_t board_size)
 {
 	int		result;
-	int		board_size;
-	long	bittarray;
+//	int		board_size;
+//	long	bitarray;
 
 	board_size = min_board(tetriminos);
 	result = 0;
-//	bitarray = ?
+	bitarray = NULL;
 	while (!result)
 	{
 		if (bitarray)
