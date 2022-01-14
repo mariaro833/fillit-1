@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/13 14:16:19 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/14 15:48:54 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	open_input(const char *filename)
 	return (open(filename, O_RDONLY));
 }
 
-static short	*get_tetriminos(int fd, unsigned char *board_size)
+static short	*get_tetriminos(int fd, unsigned char *tetrimino_count)
 {
 	char			**tetriminos[26];
 	unsigned char	count;
@@ -32,7 +32,7 @@ static short	*get_tetriminos(int fd, unsigned char *board_size)
 	}
 	if (status == -1 || count < 1 || count > 26)
 		return (error());
-	*board_size = min_board(count);
+	*tetrimino_count = count;
 	while (count--)
 		convert_to_short(tetriminos[count]);
 }
@@ -40,10 +40,10 @@ static short	*get_tetriminos(int fd, unsigned char *board_size)
 static int	fillit(int fd)
 {
 	short	*tetriminos;
-	size_t	board_size;
+	size_t	tetrimino_count;
 
-	tetriminos = get_tetriminos(fd, &board_size);
-	bitarray(board_size, FETCH);
+	tetriminos = get_tetriminos(fd, &tetrimino_count);
+	bitarray(min_board(tetrimino_count), FETCH);
 	solution = solve(tetriminos);
 }
 
