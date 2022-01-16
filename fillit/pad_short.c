@@ -6,18 +6,31 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:51:26 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/16 18:16:43 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/16 19:06:26 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-unsigned long	pad_short(unsigned short tetrimino, unsigned long index, \
+#define ULONG_BITCOUNT 64
+#define TETRIMINO_SIZE 4
+
+static unsigned char	total_shift(unsigned short index, \
+	unsigned char board_width)
+{
+	return ((board_width * TETRIMINO_SIZE) % ULONG_BITCOUNT \
+		- index % ULONG_BITCOUNT);
+}
+
+/*
+	calculate total shift before shifting (board_width == 4)
+*/
+
+unsigned long	pad_short(unsigned short tetrimino, unsigned short index, \
 	unsigned char board_width)
 {
 	unsigned char	t;
 	unsigned char	tetrimino_line;
 	unsigned long	tetrilong;
 	unsigned char	padding;
-	unsigned char	total_shift;
 
 	t = 16;
 	if (board_width > 4 && board_width <= 20)
@@ -30,42 +43,10 @@ unsigned long	pad_short(unsigned short tetrimino, unsigned long index, \
 			tetrimino_line = (tetrimino >> t) & 0b1111;
 			tetrilong = (tetrilong ^ tetrimino_line) << padding;
 		}
-		total_shift = board_width * 4;
-		tetrilong = (tetrilong << (64 - total_shift));
-		tetrilong >>= index % 64;
-		return (tetrilong);
+		return (tetrilong << total_shift(index, board_width));
 	}
 	else if (board_width == 4)
-		return (((unsigned long)tetrimino) << 48);
+		return ((((unsigned long)tetrimino) << 48) >> index % 64);
 	else
 		return ((unsigned long)(-1));
 }
-
-/*
-unsigned long	pad_short(short tetrimino, unsigned long index, \
-	unsigned char board_width)
-{
-	unsigned char	t;
-	unsigned char	tetrimino_line;
-	unsigned long	tetrilong;
-	unsigned char	padding;
-
-	t = 16;
-	if (board_width > 4 && board_width <= 20)
-	{
-		padding = board_width - 4;
-		while (t)
-		{
-			t -= 4;
-			tetrimino_line = (tetrimino >> t) & 0b1111;
-			tetrilong = (tetrilong << (index + 16 - t)) ^ tetrimino_line;
-			tetrilong = tetrilong << padding;
-		}
-		return (tetrilong);
-	}
-	else if (board_width == 4)
-		return (((unsigned long)tetrimino) << 48);
-	else
-		return ((unsigned long)(-1));
-}
-*/
