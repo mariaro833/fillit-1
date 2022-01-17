@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:49:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/14 15:52:33 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/14 16:51:27 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ unsigned short	min_board(short *tetriminos)
 {
 	int	lines; // probably lines could come from get_next_tetrimino ?
 	int	size;
-/*
-	while (*tetriminos)
-	{
-		if (ft_strchr == \n)
-	}*/
-
 
     size_t  board_size;
 
@@ -133,23 +127,46 @@ t_bitarray  *bitarrnew(size_t size)
     return (bitarr);
 }
 
-
-char	*solve(short *tetriminos, size_t board_size)
+static char  depth(char direction)
 {
-	int		result;
-//	int		board_size;
-//	long	bitarray;
+    static char depth;
 
-	board_size = min_board(tetriminos);
-	result = 0;
-	bitarray = NULL;
-	while (!result)
-	{
-		if (bitarray)
-			free (bitarray);
-		bitarray = (char *)memalloc(sizeof(char)*(board_size + 1));
-		result = get_next_tetrimino(bitarray, tetriminos); (?)
-		board_size++;
-	}
-	return (display_solution_board(tetriminos, bitarray));
+    depth += direction;
+    return (depth);
 }
+
+/*
+THE MAIN ISSUE HERE:
+Can we translate the bit array into our textual solution?
+We need to generate (after the solution has been found)
+ the string of the solution with the correct alphabets.
+We know:
+-the size of the malloc we need to make by the board_size.
+-the index for each tetrimino
+We could know:
+-the depth of the recursion (which gives us the alphabet in question)
+
+
+
+solve(size_t depth)
+solve(0)    alphabet[depth] == 'A'
+ solve(1)    alphabet[depth] == 'B'
+  solve(2)    alphabet[depth] == 'C'
+   solve(3)    alphabet[depth] == 'D'
+   */
+
+char	*solve(short *tetriminos, size_t board_size, char depth)
+{
+	int	tetr_pos;
+
+	tetr_pos = tetriminos / bord_size;
+
+	while(tetriminos)
+//		if(ceiling_division((board_size)))
+			if (solve(tetriminos, board_size, depth + 1))
+				return (1);
+			next_tetrimino(tetriminos, board_size);
+	
+
+}
+
