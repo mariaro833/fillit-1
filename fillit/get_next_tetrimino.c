@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_tetrimino.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:47:39 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/11 17:51:59 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/17 17:27:56 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ ssize_t	get_next_tetrimino(int fd, int *status, char ***tetrimino)
 			}
 			while ()
 			{
-				
+
 			}
 		}
 		else if (read_bytes == 0)
 		{
-			
+
 		}
 		line++;
 	}

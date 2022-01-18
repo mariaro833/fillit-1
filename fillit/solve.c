@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:49:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/14 16:51:27 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/18 11:57:00 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,16 +157,13 @@ solve(0)    alphabet[depth] == 'A'
 
 char	*solve(short *tetriminos, size_t board_size, char depth)
 {
-	int	tetr_pos;
+	//int	;
 
-	tetr_pos = tetriminos / bord_size;
+	if (tetriminos[depth])
+		(solve(tetriminos, board_size, depth + 1));
 
-	while(tetriminos)
-//		if(ceiling_division((board_size)))
-			if (solve(tetriminos, board_size, depth + 1))
-				return (1);
-			next_tetrimino(tetriminos, board_size);
-	
+//			next_tetrimino(tetriminos, board_size);
+
 
 }
 
