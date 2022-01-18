@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:49:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/18 11:57:00 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/18 19:10:43 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,15 +155,36 @@ solve(0)    alphabet[depth] == 'A'
    solve(3)    alphabet[depth] == 'D'
    */
 
-char	*solve(short *tetriminos, size_t board_size, char depth)
+static char *ft_strnewset(char chr, char depth)
 {
-	//int	;
+    char    *string;
 
-	if (tetriminos[depth])
-		(solve(tetriminos, board_size, depth + 1));
+    string = (char *)malloc(sizeof(char) * (depth + 1));
+    if (string)
+        ft_memset(string, chr)[depth] = '\0'
+    return (string);
+}
 
-//			next_tetrimino(tetriminos, board_size);
+/* list of tetriminoes ends with 0UL */
+char    *solve(unsigned long *tetriminoes, char depth)
+{
+    unsigned long   tetrilong;
+    char            *string;
 
-
+    if (!tetrimino[depth - 'A'])
+        return (ft_strnewset('.', depth - 1));
+    tetrilong = tetrimino[depth - 'A'];
+    while (index < board_size * board_size)
+    {
+        if (bitarrset(bitarray(FETCH), tetrilong, index))
+        {
+            string = solve(tetriminoes, depth + 1)
+            if (string)
+                place_alphabet(&string, tetrilong, index, depth);
+            return (string);
+        }
+        index++;
+    }
+    return (NULL);
 }
 
