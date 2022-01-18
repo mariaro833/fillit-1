@@ -6,12 +6,13 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:51:26 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/17 17:19:23 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/18 14:12:41 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define ULONG_BITCOUNT 64
 #define TETRIMINO_SIZE 4
+#define MAX_BOARD_SIZE 20
 
 static unsigned char	redundancy_check(unsigned long tetrilong, \
 	short shift_modulus)
@@ -22,6 +23,15 @@ static unsigned char	redundancy_check(unsigned long tetrilong, \
 		shift_modulus = 0;
 	checker = tetrilong;
 	return ((checker >> shift_modulus) << shift_modulus == tetrilong);
+}
+
+/*
+	Call just once to calculate only once?
+*/
+static unsigned char	final_shift(unsigned char board_size)
+{
+	return (ULONG_BITCOUNT - \
+		(board_size * 3 + TETRIMINO_SIZE) % ULONG_BITCOUNT);
 }
 
 /*
@@ -44,26 +54,27 @@ unsigned long	pad_short(unsigned short tetrimino, unsigned short index, \
 
 	t = 16;
 	tetrilong = 0;
-	if (board_size > 4 && board_size <= 20)
+	if (board_size > TETRIMINO_SIZE && board_size <= MAX_BOARD_SIZE)
 	{
-		padding = board_size - 4;
+		padding = board_size - TETRIMINO_SIZE;
 		shift_modulus = index % board_size;
 		while (t)
 		{
-			tetrilong <<= 4;
-			t -= 4;
+			tetrilong <<= TETRIMINO_SIZE;
+			t -= TETRIMINO_SIZE;
 			tetrimino_line = (tetrimino >> t) & 0b1111;
-			tetrilong = (tetrilong ^ tetrimino_line) << padding;
-			if (!redundancy_check(tetrilong, shift_modulus))
+			tetrilong = (tetrilong ^ tetrimino_line) << (padding * !!t);
+			if (!redundancy_check(tetrilong, shift_modulus * !!t))
 				return (~tetrilong);//(unsigned long)(-1));
 		}
-		if (redundancy_check(tetrilong, index % 64 - board_size))
-			return (tetrilong << (64 - board_size * 4 % 64));
-		else
-			return (~(tetrilong << (64 - board_size * 4 % 64)));//(unsigned long)(-1));
+		tetrilong <<= final_shift(board_size);
+		if (redundancy_check(tetrilong, 64 - (board_size * board_size) % 64 + index % 64))
+			return (tetrilong);
+		else //encode for debugging purposes
+			return (~(tetrilong << (64 - board_size * TETRIMINO_SIZE % 64)));//(unsigned long)(-1));
 	}
-	else if (board_size == 4)
-		return ((((unsigned long)tetrimino) << 48) >> index % board_size);
+	else if (board_size == TETRIMINO_SIZE)
+		return (((unsigned long)tetrimino) << 48);
 	else
-		return ((unsigned long)(-1));
+		return ((unsigned long)(-1)); //handle gracefully: "error"
 }
