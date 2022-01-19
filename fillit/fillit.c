@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/14 15:48:54 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/19 06:38:18 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	open_input(const char *filename)
 	return (open(filename, O_RDONLY));
 }
 
-static short	*get_tetriminos(int fd, unsigned char *tetrimino_count)
+static short	*get_tetriminoes(int fd, unsigned char *tetrimino_count)
 {
-	char			**tetriminos[26];
+	char			**tetriminoes[26];
 	unsigned char	count;
 	int				status;
 
@@ -27,24 +27,33 @@ static short	*get_tetriminos(int fd, unsigned char *tetrimino_count)
 	status = 1;
 	while (status == 1)
 	{
-		tetriminos[count] = get_next_tetrimino(fd, &status, &tetriminos[count]);
+		tetriminoes[count] = get_next_tetrimino(fd, &status, &tetriminoes[count]);
 		count++;
 	}
 	if (status == -1 || count < 1 || count > 26)
 		return (error());
 	*tetrimino_count = count;
 	while (count--)
-		convert_to_short(tetriminos[count]);
+		convert_to_short(tetriminoes[count]);
 }
 
 static int	fillit(int fd)
 {
-	short	*tetriminos;
-	size_t	tetrimino_count;
+	short			*tetriminoes;
+	size_t			tetrimino_count;
+	unsigned char	board_size;
+	char			*solution;
 
-	tetriminos = get_tetriminos(fd, &tetrimino_count);
-	bitarray(min_board(tetrimino_count), FETCH);
-	solution = solve(tetriminos);
+	tetriminoes = get_tetriminoes(fd, &tetrimino_count);
+	board_size = min_board(tetrimino_count);
+	solution = NULL;
+	while (!solution)
+	{
+		bitarray(board_size, UPDATE);
+		solution = solve(tetriminoes, board_size++, 0);
+	}
+	display_solution_board(solution);
+	return (0);
 }
 
 int	main(int argc, char **argv)
