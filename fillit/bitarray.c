@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:40:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/19 13:33:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/19 15:46:37 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,22 @@ static unsigned long	ceiling_division(unsigned long dividend, \
 t_bitarr	*bitarray(unsigned long len, unsigned char flags)
 {
 	static t_bitarr	*bitarr;
-	unsigned long	size;
 
 	if (!bitarr)
-		bitarr = (t_bitarr *)malloc(sizeof(t_bitarr));
+		bitarr = (t_bitarr *)ft_memalloc(sizeof(t_bitarr));
 	if (!bitarr)
 		return (NULL);
-	if (flags & UPDATE)
+	if (flags & UPDATE || !bitarr->arr)
 	{
 		bitarr->len = len;
-		//bitarr->size = sizeof(unsigned long) * \
-		//	ceiling_division(len, sizeof(unsigned long) * 8);
-		size = 
-		bitarr->arr = (unsigned long *)malloc(size);
+		bitarr->arr = (unsigned long *)malloc(sizeof(unsigned long) * \
+			ceiling_division(len, ULONG_BITCOUNT));
+		if (!bitarr->arr)
+		{
+			free(bitarr);
+			return (NULL);
+		}
+		bitarrzero(bitarr);
 	}
 	return (bitarr);
 }
