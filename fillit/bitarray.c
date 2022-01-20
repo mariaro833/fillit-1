@@ -6,11 +6,13 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:40:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/19 15:46:37 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/20 14:03:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include "libft.h"
+#include <stdlib.h>
 
 static unsigned long	ceiling_division(unsigned long dividend, \
 	unsigned long divisor)
@@ -18,7 +20,7 @@ static unsigned long	ceiling_division(unsigned long dividend, \
 	unsigned long	division;
 	unsigned long	remnant_truth;
 
-	division = dividend / sizeof(unsigned long);
+	division = dividend / divisor;
 	remnant_truth = !!(dividend % sizeof(unsigned long));
 	return (division + remnant_truth);
 }
@@ -29,16 +31,18 @@ t_bitarr	*bitarray(unsigned long len, unsigned char flags)
 
 	if (!bitarr)
 		bitarr = (t_bitarr *)ft_memalloc(sizeof(t_bitarr));
-	if (!bitarr)
-		return (NULL);
-	if (flags & UPDATE || !bitarr->arr)
+	if (bitarr && (flags & UPDATE && bitarr->size < len) || !bitarr->arr)
 	{
 		bitarr->len = len;
-		bitarr->arr = (unsigned long *)malloc(sizeof(unsigned long) * \
-			ceiling_division(len, ULONG_BITCOUNT));
+		free(bitarr->arr);
+		bitarr->size = sizeof(unsigned long) * \
+			ceiling_division(len, ULONG_BITCOUNT);
+		bitarr->arr = (unsigned long *)malloc(bitarr->size);
+		bitarr->size *= BYTE_BITCOUNT;
 		if (!bitarr->arr)
 		{
-			free(bitarr);
+			free(bitarr); //optional bitarrdel here
+			bitarr = NULL;
 			return (NULL);
 		}
 		bitarrzero(bitarr);

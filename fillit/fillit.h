@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/19 15:53:42 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/20 11:36:05 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # define FETCH (unsigned char)0b0
 # define UPDATE (unsigned char)0b1
 
+# define BYTE_BITCOUNT 8
 # define ULONG_BITCOUNT 64
 
 typedef struct s_bitarr
 {
 	unsigned long	*arr;
 	unsigned long	len;
+	unsigned long	size;
 }	t_bitarr;
 
 void			bitarrzero(t_bitarr *bitarr);
