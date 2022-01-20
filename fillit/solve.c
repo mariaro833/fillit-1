@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:49:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/20 13:50:35 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/20 13:53:46 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 	...
 	26:		104		121		11^2 <-- might not be the largest solution*/
 
-unsigned short	min_board(short count)
+unsigned short	min_board(short *tetrimino_count)
 {
 	int	board_size;
 
     size = 2;
-    while (board_size * board_size < 4 * count)
+    while (board_size * board_size < 4 * tetrimino_count)
         board_size++;
     return (board_size * board_size);
 }

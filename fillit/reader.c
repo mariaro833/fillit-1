@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:13:48 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/20 13:40:08 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/20 19:53:58 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,17 @@ static int	validater(char str, char tetriminoes, int *count)
 
 
 
-static unsigned short	get_next_tetrimino(int fd, int *status, int *count)
+static unsigned short	get_next_tetrimino(int fd, unsigned char ***tetriminoes, int *count)
 {
-	char			buf[TETRIMINO_WIDTH + 2];
-	ssize_t			ret;
-	unsigned char	**line;
+	int				line_count;
 
-	line = count * 5;
-	while (line < count * 5 + 4)
+	line_count = count * 5;
+	while (line_count < count * 5 + 4)
 	{
-		ret = read(fd, buf, TETRIMINO_WIDTH + 1);
-		if (ret <= -1)
-			return (-1);
-		if (fd == -1 || ret == 0)
-			return (0);
-		else if (ret == TETRIMINO_WIDTH + 1)
-			if (buf[ret] != '\n')
-				return (-1);
-			while ()
-		else if (ret == 0)
-		{
-
-		}
-		line++;
+		status = get_next_line(fd, tetriminoes);
+		line_count++;
 	}
-	return ();
+	return (status);
 }
 
 # define TETRIMINO_WIDTH 4 //move to .h file
@@ -73,11 +59,11 @@ static short	*get_tetriminoes(int fd, unsigned char *tetrimino_count)
 	status = 1;
 	while (status == 1)
 	{
-		tetriminoes[count] = get_next_tetrimino(fd, &status, &count);
+		status = get_next_tetrimino(fd, &tetriminoes[count], &count);
 		count++;
 	}
 	if (status == -1 || count < 1 || count > 26)
-		return (error());
+		return (error);
 	*tetrimino_count = count;
 	while (count--)
 		convert_to_short(tetriminoes[count]);
