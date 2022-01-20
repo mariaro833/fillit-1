@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:13:48 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/20 13:09:54 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/20 13:40:08 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,25 @@ static int	validater(char str, char tetriminoes, int *count)
 
 
 
-ssize_t	get_next_tetrimino(int fd, int *status, char ***tetrimino)
+static unsigned short	get_next_tetrimino(int fd, int *status, int *count)
 {
 	char			buf[TETRIMINO_WIDTH + 2];
-	ssize_t			read_bytes;
-	unsigned char	line;
+	ssize_t			ret;
+	unsigned char	**line;
 
-	line = 0;
-	while (line < 4)
+	line = count * 5;
+	while (line < count * 5 + 4)
 	{
-		read_bytes = read(fd, buf, TETRIMINO_WIDTH + 1);
-		if (read_bytes <= -1)
+		ret = read(fd, buf, TETRIMINO_WIDTH + 1);
+		if (ret <= -1)
 			return (-1);
-		if (fd == -1 || read_bytes == 0)
+		if (fd == -1 || ret == 0)
 			return (0);
-		else if (read_bytes == TETRIMINO_WIDTH + 1)
-		{
-			if (buf[read_bytes] != '\n')
-			{
+		else if (ret == TETRIMINO_WIDTH + 1)
+			if (buf[ret] != '\n')
 				return (-1);
-			}
 			while ()
-			{
-
-			}
-		}
-		else if (read_bytes == 0)
+		else if (ret == 0)
 		{
 
 		}
@@ -68,6 +61,31 @@ static unsigned char	get_index(line_idx, character_idx)
 	Assumes valid length of lines.
 	# (hashtag) for tetrimino
 */
+
+
+static short	*get_tetriminoes(int fd, unsigned char *tetrimino_count)
+{
+	char			**tetriminoes[26];
+	unsigned char	count;
+	int				status;
+
+	count = 0;
+	status = 1;
+	while (status == 1)
+	{
+		tetriminoes[count] = get_next_tetrimino(fd, &status, &count);
+		count++;
+	}
+	if (status == -1 || count < 1 || count > 26)
+		return (error());
+	*tetrimino_count = count;
+	while (count--)
+		convert_to_short(tetriminoes[count]);
+
+}
+
+
+
 
 unsigned short	convert_to_short(const char **tetrimino_string)
 {
@@ -108,25 +126,3 @@ static int	open_input(const char *filename)
 {
 	return (open(filename, O_RDONLY));
 }
-
-static short	*get_tetriminoes(int fd, unsigned char *tetrimino_count)
-{
-	char			**tetriminoes[26];
-	unsigned char	count;
-	int				status;
-
-	count = 0;
-	status = 1;
-	while (status == 1)
-	{
-		tetriminoes[count] = get_next_tetrimino(fd, &status, &tetriminoes[count]);
-		count++;
-	}
-	if (status == -1 || count < 1 || count > 26)
-		return (error());
-	*tetrimino_count = count;
-	while (count--)
-		convert_to_short(tetriminoes[count]);
-	
-}
-
