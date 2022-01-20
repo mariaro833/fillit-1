@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:13:48 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/20 12:14:24 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/20 13:09:54 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 /*
 	Reads and validates the tetriminos.
 */
+
+static int	validater(char str, char tetriminoes, int *count)
+
+
 
 ssize_t	get_next_tetrimino(int fd, int *status, char ***tetrimino)
 {
@@ -97,3 +101,32 @@ unsigned short	convert_to_short(const char **tetrimino_string)
 		line_idx--;;
 	}
 }
+
+#include <fcntl.h>
+
+static int	open_input(const char *filename)
+{
+	return (open(filename, O_RDONLY));
+}
+
+static short	*get_tetriminoes(int fd, unsigned char *tetrimino_count)
+{
+	char			**tetriminoes[26];
+	unsigned char	count;
+	int				status;
+
+	count = 0;
+	status = 1;
+	while (status == 1)
+	{
+		tetriminoes[count] = get_next_tetrimino(fd, &status, &tetriminoes[count]);
+		count++;
+	}
+	if (status == -1 || count < 1 || count > 26)
+		return (error());
+	*tetrimino_count = count;
+	while (count--)
+		convert_to_short(tetriminoes[count]);
+	
+}
+
