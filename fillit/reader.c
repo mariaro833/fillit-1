@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:13:48 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/20 19:53:58 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/20 20:37:04 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@
 static int	validater(char str, char tetriminoes, int *count)
 
 
-
+/*still needed to check the teriminoe's width*/
 static unsigned short	get_next_tetrimino(int fd, unsigned char ***tetriminoes, int *count)
 {
 	int				line_count;
 
 	line_count = count * 5;
-	while (line_count < count * 5 + 4)
+	while (line_count <= count * 5 + 4)
 	{
 		status = get_next_line(fd, tetriminoes);
 		line_count++;
 	}
-	return (status);
+	return ();
 }
 
 # define TETRIMINO_WIDTH 4 //move to .h file
@@ -63,7 +63,7 @@ static short	*get_tetriminoes(int fd, unsigned char *tetrimino_count)
 		count++;
 	}
 	if (status == -1 || count < 1 || count > 26)
-		return (error);
+		return (NULL); // should be "error"
 	*tetrimino_count = count;
 	while (count--)
 		convert_to_short(tetriminoes[count]);
