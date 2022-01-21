@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/20 11:36:05 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/21 17:37:33 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ typedef struct s_bitarr
 void			bitarrzero(t_bitarr *bitarr);
 t_bitarr		*bitarray(unsigned long len, unsigned char flags);
 
+/*# define SPLIT_LEFT 0
+# define SPLIT_MIDDLE 1
+# define SPLIT_RIGHT 2*/
+
 unsigned long	pad_short(unsigned short tetrimino, unsigned short index, \
 	unsigned char board_width);
-
+static void		split_long(unsigned long input, unsigned long index, \
+	unsigned long *left, unsigned long *right);
 #endif

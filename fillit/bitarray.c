@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:40:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/20 14:03:31 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/21 15:57:42 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_bitarr	*bitarray(unsigned long len, unsigned char flags)
 
 	if (!bitarr)
 		bitarr = (t_bitarr *)ft_memalloc(sizeof(t_bitarr));
-	if (bitarr && (flags & UPDATE && bitarr->size < len) || !bitarr->arr)
+	if (bitarr && ((flags & UPDATE && bitarr->size < len) || !bitarr->arr))
 	{
 		bitarr->len = len;
 		free(bitarr->arr);
@@ -47,5 +47,7 @@ t_bitarr	*bitarray(unsigned long len, unsigned char flags)
 		}
 		bitarrzero(bitarr);
 	}
+	else if (flags & UPDATE && bitarr->len < len)
+		bitarr->len = len;
 	return (bitarr);
 }
