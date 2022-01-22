@@ -6,11 +6,43 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:55:47 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/21 17:43:48 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/22 15:24:59 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+/*
+
+bitarr:
+0000 0000-0000 0000-0000 0000-0*00 0000, * ->len (still counted in in the board)
+bitstring:
+0000 0001
+index:
+20
+bitarr->len:
+26
+0000 0000-0000 0000-0000 0000-0*00 0000
+    _    -    _    -   0 0000-001
+1234 5670 1234 5670 1234 5670 1234 5670 (modulo 8)
+1234 5678 9012 3456 7890
+ left: 0000
+right: 0010
+
+bitarr->len % CHAR_BITCOUNT == bitarr->len % 8 == 26 % 8 == 2
+index % CHAR_BITCOUNT - 1 == index % 8 - 1 == 20 % 8 - 1 == 4 - 1 == 3
+
+
+*/
+
+static unsigned char	check_len_overrun(unsigned long len, \
+	unsigned long right, unsigned long index)
+{
+	unsigned short	shift;
+
+	shift = ULONG_BITCOUNT - len % ULONG_BITCOUNT + index % ULONG_BITCOUNT;
+	return (((right >> shift) << shift) == right);
+}
 
 unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
 	unsigned long bitstring)
@@ -21,6 +53,8 @@ unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
 
 	split_long(bitstring, index, &left, &right);
 	index_division = index / ULONG_BITCOUNT;
+	if (right && !check_len_overrun(bitarr->len, right, index))
+		return (0);
 	if (!(bitarr->arr[index_division] & left) \
 		&& !(bitarr->arr[index_division + 1] & right))
 	{
@@ -34,6 +68,9 @@ unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
 /*
 split_long returns the value which split of the long has bits to set.
 set only the side which is not 0. Faster or not? Test.
+
+USE RATHER:
+!left !right
 
 unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
 	unsigned long bitstring)
