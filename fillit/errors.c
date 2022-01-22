@@ -6,34 +6,32 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/21 20:11:31 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/22 14:14:37 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-void	errors(int key)
-{
-	if (key == MALLOC_ISSUE)
-		ft_putstr ("..."); // mallocation issues
-	if (key == 1)
-		ft_putstr ("error\n");
-	if (key = -1) // no any file
-		ft_putstr ();
-}
+** 	messge				output		comment
+**	error				 - 1 	tetriminoes error;
+** 	mallocation issues 	  0 	malloc issues
 */
-	errors(MALLOC_ISSUE);
 
-
-
-int	errors(char *message, int output)
+long	errors(char *message, long output)
 {
 	ft_putstr (message); // tetriminoes errors
 	return (output);
 }
 
+/*
+void	check_tetriminoes_errors(char **tetriminoes)
+{
+	while ()
 
+}*/
+
+/*
 char	*function(type parameter)
 {
 	return ((char *)errors("File open error"), 0); //return (NULL);
@@ -52,4 +50,4 @@ int	get_next_line_caller(type param)
 	if (status == -1)
 		return (errors("get_next_line internal error.", 0));
 }
-
+*/

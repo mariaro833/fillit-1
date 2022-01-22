@@ -6,13 +6,12 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:13:48 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/21 18:39:24 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/22 19:42:24 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-#include <unistd.h>
+#include <stdio.h>
 //move to .h file
 
 /*
@@ -21,43 +20,38 @@
 
 /*static int	validater(char str, char tetriminoes, int *count)*/
 
-static t_tetr	*get_next_tetrimino(int size)
+static char	**get_tetrimino(int size)
 {
-	t_tetr	*new;
+	char	**new_tetrimino;
 	int		i;
 
-	new = (t_tetr *)malloc(sizeof(t_tetr));
-	if (!new)
+	new_tetrimino = (char **)malloc(size*sizeof(char *));
+	if (!new_tetrimino)
 		return (NULL);
-	new->next = NULL;
-	new->size = size;
-	new->tetr = (char **)malloc(sizeof(char *) * size);
 	i = 0;
 	while (i < size)
 	{
-		new->tetr[i] = ft_strnew(size);
+		new_tetrimino[i] = ft_strnew(size);
 		i++;
 	}
-	return (new);
+	return (new_tetrimino);
 }
 
-static usigned int	check_errors_tetriminoes(t_tetr *tmp, char **tetriminoes,
-		int num, int check_point)
+static unsigned int	check_tetriminoes(char *temp, char **tetriminoes,
+		int tetr_num, int check_point)
 {
 	int	l;
 
-	l = ft_strlen (*teriminoes);
-	if (l != check_point);
-		errors (1);
+	l = ft_strlen (*tetriminoes);
+	if (l != check_point)
+		errors ("error", -1);
 	if (check_point == 0)
 	{
-		if (num > 25)
-			error (2);
-		tmp->num = num;
-		tmp->size = 4;
-		tmp->next = get_next_tetrimino(4);
+		if (tetr_num > 25)
+			errors ("error", -1);
+		temp = get_tetrimino(4);
 	}
-	ft_strdel(tetrimines);
+	ft_strdel(tetriminoes);
 	return (0);
 }
 
@@ -67,57 +61,57 @@ static usigned int	check_errors_tetriminoes(t_tetr *tmp, char **tetriminoes,
 */
 
 
-t_tetr	*get_tetriminoes(int fd)
+char	*get_next_tetriminoes(int fd)
 {
-	t_tetr	*start;
-	t_tetr	*tmp;
-	char	*tetriminoes;
-	int		count; //index
-	int		num;
+	char			**start;
+	char			**temp;
+	char			*tetriminoes;
+	int				count;
+	int				tetr_num;
 
-	start = get_next_tetrimino(4);
-	tmp = start;
+	start = get_tetrimino(4);
+	if (!start)
+		return ((char *)errors("mallocation_issues", 0));
+	temp = start;
 	count = 0;
-	num = 0;
+	tetr_num = 0;
 	while ((get_next_line(fd, &tetriminoes)))
 	{
 		if (count == 4)
 		{
-			count = check_tetriminoes(tmp, &tetriminoes, num++, 0);
-			tmp = tmp->next;
+			count = check_tetriminoes(temp, &tetriminoes, tetr_num++, 0);
 		}
 		else
 		{
-			ft_strcpy (tmp->tetr[count++], tetriminoes);
-			check_line (tmp, &tetriminoes, num, 4);
+			ft_strcpy (&temp[count++], tetriminoes);
+			check_tetriminoes (temp, &tetriminoes, tetr_num, 4);
 		}
 	}
-	free(line);
-	tmp->num = num;
+	start = temp;
 	return (start);
 }
 
-int	main(void)
+int		main(int argc, char **argv)
 {
 	char		*line;
-	int			fd1;
-//	int			count;
-	int			result;
+	int			fd;
 
-	fd1 = open("/Users/mrozhnova/HIVE/fillit_github_teemu/eval_tests/example2.input", O_RDONLY);
-
-	line = get_tetriminoes (fd1);
-
-//	count = 0;
-	while (*get_tetriminoes(int fd1))
+	if (argc != 2)
 	{
-		printf("%s\n", &line);
-		if (result == 1)
-			free(line);
-		count++;
+		errors ("tetriminoes_file_missed\n", -1);
+		return (-1);
 	}
-
-	system("leaks a.out");
+	fd = open("test0.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		errors ("open_file_error\n", -1);
+		return (-1);
+	}
+	line = get_next_tetriminoes(fd);
+	close (fd);
+	while (get_next_tetriminoes(fd))
+		printf ("%s\n", line);
+//	system("leaks a.out");
 	return (0);
 }
 /*
