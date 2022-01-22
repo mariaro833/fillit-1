@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:55:47 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/22 15:24:59 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/22 17:57:18 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ index % CHAR_BITCOUNT - 1 == index % 8 - 1 == 20 % 8 - 1 == 4 - 1 == 3
 
 */
 
-static unsigned char	check_len_overrun(unsigned long len, \
+/*static unsigned char	check_len_overrun(unsigned long len, \
 	unsigned long right, unsigned long index)
 {
 	unsigned short	shift;
 
 	shift = ULONG_BITCOUNT - len % ULONG_BITCOUNT + index % ULONG_BITCOUNT;
 	return (((right >> shift) << shift) == right);
-}
+}*/
 
 unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
 	unsigned long bitstring)
@@ -50,16 +50,22 @@ unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
 	unsigned long	left;
 	unsigned long	right;
 	unsigned short	index_division;
+	unsigned long	len_division;
 
 	split_long(bitstring, index, &left, &right);
 	index_division = index / ULONG_BITCOUNT;
-	if (right && !check_len_overrun(bitarr->len, right, index))
-		return (0);
+	len_division = bitarr->len / ULONG_BITCOUNT;
+	/*if ((index_division == len_division - 1 && \
+		!check_len_overrun(bitarr->len, left, index)) || \
+		(index_division == len_division && \
+		!check_len_overrun(bitarr->len, left, index) && \
+		!check_len_overrun(bitarr->len, right, index)))
+		return (0);*/
 	if (!(bitarr->arr[index_division] & left) \
 		&& !(bitarr->arr[index_division + 1] & right))
 	{
 		bitarr->arr[index_division] |= left;
-		bitarr->arr[index_division + 1] |= right;
+		bitarr->arr[index_division + 1] |= right; //segfault
 		return (1);
 	}
 	return (0);

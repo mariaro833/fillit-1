@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 16:14:20 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/22 15:25:11 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/22 16:11:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@ void	split_long(unsigned long input, unsigned long index, \
 {
 	index %= ULONG_BITCOUNT;
 	*left = input >> index;
-	*right = input << (ULONG_BITCOUNT - index - 1);
+	*right = 0;
+	if (index)
+		*right = input << (ULONG_BITCOUNT - index);
 }
