@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:51:26 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/21 21:26:16 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/23 15:45:24 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static unsigned char	final_shift(unsigned char board_size)
 		shift becomes 64, which is undefined behaviour...
 */
 
-unsigned long	pad_short(unsigned short tetrimino, unsigned short index, \
+unsigned long	pad_short(unsigned short tetrimino, unsigned long index, \
 	unsigned char board_size)
 {
 	unsigned char	t;
