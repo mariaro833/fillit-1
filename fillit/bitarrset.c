@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:55:47 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/22 22:33:17 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:24:12 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,50 @@ static unsigned char	check_len_overrun(unsigned long len, \
 	unsigned short	shift;
 
 	shift = ULONG_BITCOUNT - len % ULONG_BITCOUNT;
-	return (((bitstring >> shift) << shift) == bitstring);
+	if (shift == ULONG_BITCOUNT && bitstring)
+		return (1);
+	return (((bitstring >> shift) << shift) != bitstring);
 }
+
+/*
+	Add len_division as a member to t_bitarr struct?
+	remove check of existance of left, since tetriminoes are mostly on the left
+*/
 
 unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
 	unsigned long bitstring)
 {
 	unsigned long	left;
 	unsigned long	right;
-	unsigned short	index_division;
+	unsigned long	index_division;
 	unsigned long	len_division;
 
 	split_long(bitstring, index, &left, &right);
 	index_division = index / ULONG_BITCOUNT;
 	len_division = bitarr->len / ULONG_BITCOUNT;
-	if ((index_division == len_division && \
-		!check_len_overrun(bitarr->len, left)) || \
-		(right && !check_len_overrun(bitarr->len, right)))
-		return (0);
-	if (!(bitarr->arr[index_division] & left) \
-		&& !(bitarr->arr[index_division + 1] & right))
+	if ((index_division == len_division && left && \
+		check_len_overrun(bitarr->len, left)) || \
+		(index_division + 1 == len_division && right && \
+		check_len_overrun(bitarr->len, right)))
+		return ((unsigned char)(-1));
+	if (!(bitarr->arr[index_division] & left))
 	{
-		bitarr->arr[index_division] |= left;
-		bitarr->arr[index_division + 1] |= right; //segfault
-		return (1);
+		if (right && index_division + 1 <= len_division)
+		{
+			if (!(bitarr->arr[index_division + 1] & right))
+			{
+				bitarr->arr[index_division] |= left;
+				bitarr->arr[index_division + 1] |= right;
+				return (1);
+			}
+			else
+				return (0);
+		}
+		else if (!right)
+		{
+			bitarr->arr[index_division] |= left;
+			return (1);
+		}
 	}
 	return (0);
 }
