@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 12:13:48 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/22 19:42:24 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/23 12:19:21 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 /*static int	validater(char str, char tetriminoes, int *count)*/
 
-static char	**get_tetrimino(int size)
+static char	*get_tetrimino(int size)
 {
 	char	**new_tetrimino;
 	int		i;
@@ -34,7 +34,7 @@ static char	**get_tetrimino(int size)
 		new_tetrimino[i] = ft_strnew(size);
 		i++;
 	}
-	return (new_tetrimino);
+	return (*new_tetrimino);
 }
 
 static unsigned int	check_tetriminoes(char *temp, char **tetriminoes,
@@ -63,8 +63,8 @@ static unsigned int	check_tetriminoes(char *temp, char **tetriminoes,
 
 char	*get_next_tetriminoes(int fd)
 {
-	char			**start;
-	char			**temp;
+	char			*start;
+	char			*temp;
 	char			*tetriminoes;
 	int				count;
 	int				tetr_num;

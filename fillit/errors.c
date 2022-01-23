@@ -6,16 +6,18 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/22 14:14:37 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/23 12:42:31 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-** 	messge				output		comment
-**	error				 - 1 	tetriminoes error;
-** 	mallocation issues 	  0 	malloc issues
+** 	messge				output			comment
+**	error					-1		tetriminoes error;
+** 	mallocation issues 		0		malloc issues
+**	file reader error		2
+**	file open error			2		
 */
 
 long	errors(char *message, long output)
