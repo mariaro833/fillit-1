@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/23 14:16:43 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/23 14:49:15 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_tetriminoes
 	//char			letters;
 	//			index;
 }				t_tetriminoes;
+
 long	errors(char *message, long output);
 
 #endif
