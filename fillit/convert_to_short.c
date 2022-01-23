@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   convert_to_short.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:42:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/11 17:54:41 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/23 14:39:18 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # define TETRIMINO_WIDTH 4 //move to .h file
-
 
 
 static unsigned char	get_index(line_idx, character_idx)
@@ -25,6 +24,8 @@ static unsigned char	get_index(line_idx, character_idx)
 */
 
 unsigned short	convert_to_short(const char **tetrimino_string)
+
+/*
 {
 	unsigned short	tetrimino;
 	unsigned char	line_idx;
@@ -49,10 +50,10 @@ unsigned short	convert_to_short(const char **tetrimino_string)
 			}
 			else
 			{
-				
+
 			}
 			character_idx--;
 		}
 		line_idx--;;
 	}
-}
+}*/

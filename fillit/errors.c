@@ -6,50 +6,22 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/23 12:42:31 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/23 13:13:07 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-** 	messge				output			comment
+** 	message				output			comments
 **	error					-1		tetriminoes error;
-** 	mallocation issues 		0		malloc issues
+** 	mallocation issues 		0
 **	file reader error		2
-**	file open error			2		
+**	file open error			2
 */
 
 long	errors(char *message, long output)
 {
-	ft_putstr (message); // tetriminoes errors
+	ft_putstr (message);
 	return (output);
 }
-
-/*
-void	check_tetriminoes_errors(char **tetriminoes)
-{
-	while ()
-
-}*/
-
-/*
-char	*function(type parameter)
-{
-	return ((char *)errors("File open error"), 0); //return (NULL);
-}
-
-int	another_function(type param)
-{
-	return (errors("File read error.", -1));
-}
-
-int	get_next_line_caller(type param)
-{
-	int status;
-
-	status = get_next_line(fd, &line);
-	if (status == -1)
-		return (errors("get_next_line internal error.", 0));
-}
-*/
