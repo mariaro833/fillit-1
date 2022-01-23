@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:40:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/21 15:57:42 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/23 12:53:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static unsigned long	ceiling_division(unsigned long dividend, \
 	unsigned long	remnant_truth;
 
 	division = dividend / divisor;
-	remnant_truth = !!(dividend % sizeof(unsigned long));
+	remnant_truth = !!(dividend % divisor);
 	return (division + remnant_truth);
 }
 
