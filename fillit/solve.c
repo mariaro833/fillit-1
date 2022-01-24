@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:49:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/23 17:20:51 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/24 08:12:25 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ char	*solve(unsigned short *tetriminoes, unsigned char board_size, \
 	while (index < bitcount)
 	{
 		tetrilong = pad_short(tetriminoes[(unsigned long)depth], index, board_size);
-		if (bitarrset(bitarray(bitcount, FETCH), index, tetrilong) == 1)
+		if (tetrilong != (unsigned long)(-1) && bitarrset(bitarray(bitcount, FETCH), index, tetrilong) == 1)
 		{
-			printf("tetrimino placed on index %lu\n", index);
+			//printf("tetrimino placed on index %lu\n", index);
 			string = solve(tetriminoes, board_size, depth + 1);
 			if (string)
 			{
 				place_alphabet(&string, tetrilong, index, depth + 'A');
+				bitcount = 0;
 				return (string);
 			}
 			bitarrunset(bitarray(bitcount, FETCH), index, tetrilong);
