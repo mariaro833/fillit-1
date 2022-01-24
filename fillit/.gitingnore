@@ -1,0 +1,6 @@
+*.o
+a.out
+.gitignore
+libft
+test0.txt
+test2.txt
