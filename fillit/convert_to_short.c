@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:42:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/23 16:54:08 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/24 15:21:26 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,19 @@ unsigned short	convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_stri
 		return (errors ("error", -1));
 
 	binary_tetr = (char *)malloc(24 + 1);
-	strcpy (binary_tetr, "");
+	ft_strcpy (binary_tetr, "");
 	temp = tetrimino_string;
-	while (*temp)
+	i = 0;
+	while (temp[i] != '#')
+		i++;
+	while (temp)
 	{
-		i = -1;
 		while (i <= 24)
 		{
 			if (temp[i] == '#')
-				strcat (binary_tetr, "1");
+				ft_strcat (binary_tetr, "1");
 			else if (temp[i] == '.')
-				strcat (binary_tetr, "0");
+				ft_strcat (binary_tetr, "0");
 			++i;
 		}
 		temp++;
