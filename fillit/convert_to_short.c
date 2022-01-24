@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:42:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/24 15:21:26 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/24 15:30:43 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ unsigned short	convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_stri
 			++i;
 		}
 		temp++;
-//		return (binary_tetr);
-		return (0);
+		return (*(unsigned short *) binary_tetr);
 	}
 	return (0);
 }
