@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:42:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/24 15:30:43 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/24 16:18:17 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 /*
 	Assumes valid length of lines.
 	# (hashtag) for tetrimino
+*/
+/*
+unsigned short	*tetrimino_validation(unsigned short *tetriminoes, \
+	unsigned char flag)
+{
+	static const unsigned short	*tetrimino_list;
+
+	if (flag & SET && tetriminoes)
+		tetrimino_list = tetriminoes;
+	return (tetrimino_list);
+}
 */
 
 unsigned short	convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_string)
@@ -42,6 +53,7 @@ unsigned short	convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_stri
 			++i;
 		}
 		temp++;
+		binary__tetr = (unsigned short )
 		return (*(unsigned short *) binary_tetr);
 	}
 	return (0);

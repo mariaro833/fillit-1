@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/24 15:07:33 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/24 16:04:53 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static int	validation(t_tetriminoes *tetriminoes, char *line, int *count)
 	while (i < 20)
 	{
 		if (line[i] != '\n' && i % 5 == 4)
-			return (0);
-		else if ((line[i] == '\n') && i % 5 == 5)
 			return (0);
 		else if ((line[i] != '#' && line[i] != '.') && i % 5 != 4)
 			return (0);
