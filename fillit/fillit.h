@@ -6,13 +6,13 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/23 14:49:15 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/23 16:53:06 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
-# define TETRIMINO_WIDTH 4
+
 #include "./libft_mrozhnov/libft.h"
 # include <fcntl.h>
 # include <stdint.h>
@@ -28,6 +28,7 @@ typedef struct s_tetriminoes
 	//			index;
 }				t_tetriminoes;
 
-long	errors(char *message, long output);
+long			errors(char *message, long output);
+unsigned short	convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_string);
 
 #endif

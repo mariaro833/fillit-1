@@ -6,26 +6,51 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:42:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/23 14:39:18 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/23 16:54:08 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# define TETRIMINO_WIDTH 4 //move to .h file
-
-
-static unsigned char	get_index(line_idx, character_idx)
-{
-	return ();
-}
-
+#include "fillit.h"
 /*
 	Assumes valid length of lines.
 	# (hashtag) for tetrimino
 */
 
-unsigned short	convert_to_short(const char **tetrimino_string)
+unsigned short	convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_string)
+{
+	int		i;
+	char	*binary_tetr;
+	char	*temp;
+
+	if (!tetrimino_string)
+		return (errors ("error", -1));
+
+	binary_tetr = (char *)malloc(24 + 1);
+	strcpy (binary_tetr, "");
+	temp = tetrimino_string;
+	while (*temp)
+	{
+		i = -1;
+		while (i <= 24)
+		{
+			if (temp[i] == '#')
+				strcat (binary_tetr, "1");
+			else if (temp[i] == '.')
+				strcat (binary_tetr, "0");
+			++i;
+		}
+		temp++;
+//		return (binary_tetr);
+		return (0);
+	}
+	return (0);
+}
+
 
 /*
+unsigned short	convert_to_short(const char **tetrimino_string)
+
+
 {
 	unsigned short	tetrimino;
 	unsigned char	line_idx;

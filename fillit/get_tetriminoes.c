@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/23 14:52:50 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/23 15:05:35 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	validation(t_tetriminoes *tetriminoes, char *line, int *count)
 	i = 0;
 	while (i < 20)
 	{
-		if ((line[i] != '#' && line[i] != '.') && (i % 5 != 4 ))
+		if (line[i] != '\n' && i % 5 == 4)
 			return (0);
-		else if (line[i] != '\n' && i % 5 == 4)
+		else if ((line[i] != '#' && line[i] != '.') && i % 5 != 4)
 			return (0);
 		if (line[i] == '#')
 			++hashs;
@@ -35,7 +35,7 @@ static int	validation(t_tetriminoes *tetriminoes, char *line, int *count)
 		return (0);
 	else
 	{
-		convert_to_short(tetriminoes + *count, line, count);
+		convert_to_short(tetriminoes + *count, line);
 		(*count)++;
 	}
 	return (1);
