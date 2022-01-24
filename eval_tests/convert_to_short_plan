@@ -1,0 +1,66 @@
+
+
+
+
+
+
+/*
+	uint8_t		unsigned char
+	uint16_t	unsigned short
+	uint32_t	unsigned int
+	uint64_t	unsigned long
+*/
+
+#define TETRIMINO_LEN 16
+
+typedef struct s_tetrimino
+{
+	unsigned short		binary_tetrimino;
+	unsigned char		width;
+	unsigned char		height;
+	unsigned char		voids;
+	char				debug_alphabet;
+}	t_tetrimino;
+
+
+INPUT: "##..\n##..\n....\n....\n\n#...\n#...\n#...\n#...\n"
+
+t_tetrimino		*convert_to_short(char *tetrimino_str)
+{
+	static char		debug_alphabet;
+	t_tetrimino		*tetrimino;
+	uint8_t			c;
+	uint8_t			voids;
+	uint8_t			all_voids;
+
+	tetrimino = (t_tetrimino *)ft_memalloc(sizeof(t_tetrimino));
+	if (!tetrimino)
+		return (errors(,));
+	c = 0;
+	all_voids = 1;
+	while (c < TETRIMINO_LEN)
+	{
+		if (tetrimino_str[c] == '\n')
+			tetrimino_str++;
+		if (tetrimino_str[c] == '#')
+		{
+			all_voids = 0;
+			tetrimino = tetrimino | 1;
+		}
+		if (all_voids)
+			all_voids++;
+		tetrimino = tetrimino << 1;
+		c++;
+	}
+	tetrimino->voids = all_voids;
+	tetrimino = tetrimino << (all_voids - all_voids % 4);
+	return (tetrimino);
+}
+
+
+
+
+
+
+
+

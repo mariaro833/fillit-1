@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:49:21 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/24 08:12:25 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/24 14:49:29 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static char	*ft_strnewset(char chr, unsigned long len)
 		((char *)ft_memset(string, chr, len + 1))[len] = '\0';
 	return (string);
 }
-
+/*
+	change bitarray to a static function.
+*/
 /* list of tetriminoes ends with 0UL */
 char	*solve(unsigned short *tetriminoes, unsigned char board_size, \
 	char depth)
