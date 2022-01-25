@@ -1,6 +1,6 @@
 #gcc -g -Wall -Wextra -Werror \
-gcc -g \
-	convert_to_short_plan.c \
+gcc -g -Wall -Wextra -Werror \
+	convert_to_short.c \
 	errors.c \
 	get_tetriminoes.c \
 	tetrimino_reference.c \

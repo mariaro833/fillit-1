@@ -6,14 +6,14 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/25 19:53:23 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 20:35:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include "libft.h"
 #include <stdlib.h>
-	# include	 <stdio.h>
+
 /*
 	Receives as input the bitarray list of tetrimino shorts
 		and smallest possible board_size calculated.
@@ -42,31 +42,32 @@ static char	*ft_strnewset(char chr, unsigned long len)
 	change bitarray to a static function.
 */
 /* list of tetriminoes ends with 0UL */
-char	*solve(unsigned short *tetriminoes, unsigned char board_size, \
-	char depth)
+
+
+char	*solve(t_tetri *tetriminoes, uint8_t board_size, char depth)
 {
-	unsigned long			index;
-	static unsigned long	bitcount;
-	unsigned long			tetrilong;
-	char					*string;
+	static uint16_t	bitcount;
+	uint64_t		index;
+	uint64_t		tetrilong;
+	char			*answer;
+	//static t_bitarr	*bitarr;
 
 	if (!bitcount)
 		bitcount = board_size * board_size;
-	if (!tetriminoes[(unsigned long)depth])
+	if (!tetriminoes[(uint64_t)depth].shape)
 		return (ft_strnewset('.', bitcount));
 	index = 0;
 	while (index < bitcount)
 	{
-		tetrilong = pad_short(tetriminoes[(unsigned long)depth], index, board_size);
-		if (tetrilong != (unsigned long)(-1) && bitarrset(bitarray(bitcount, FETCH), index, tetrilong) == 1)
+		tetrilong = pad_short(tetriminoes[(uint64_t)depth].shape, index, board_size);
+		if (tetrilong != (uint64_t)(-1) && bitarrset(bitarray(bitcount, FETCH), index, tetrilong) == 1)
 		{
-			//printf("tetrimino placed on index %lu\n", index);
-			string = solve(tetriminoes, board_size, depth + 1);
-			if (string)
+			answer = solve(tetriminoes, board_size, depth + 1);
+			if (answer)
 			{
-				place_alphabet(&string, tetrilong, index, depth + 'A');
+				place_alphabet(&answer, tetrilong, index, depth + 'A');
 				bitcount = 0;
-				return (string);
+				return (answer);
 			}
 			bitarrunset(bitarray(bitcount, FETCH), index, tetrilong);
 			//return (NULL);

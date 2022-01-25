@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/25 19:47:50 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 20:25:45 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 # include <unistd.h>
 
 # define BUFF_SIZE 21
-# define FETCH (unsigned char)0b0
-# define UPDATE (unsigned char)0b1
-# define SET (unsigned char)0b10
+# define FETCH	0b0000U
+# define UPDATE 0b0001U
+# define SET	0b0010U
+# define FREE	0b0100U
 # define TETRIMINO_TYPES 19
 # define I_0 0b1111000000000000UL
 # define I_1 0b1000100010001000UL
@@ -74,7 +75,7 @@ void			bitarrunset(t_bitarr *bitarr, unsigned long index, \
 	unsigned long bitstring);
 void			place_alphabet(char **string, unsigned long tetrilong, \
 	unsigned long index, char alphabet);
-char			*solve(unsigned short *tetriminoes, unsigned char board_size, \
+char			*solve(t_tetri *tetriminoes, uint8_t board_size, \
 	char depth);
 void			display_solution_board(char *solution, \
 	unsigned long board_size);

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/25 19:53:32 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 20:22:52 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 long	errors(char *message, long output)
 {
 	ft_putstr (message);
+	tetrimino_reference(NULL, FREE);
 	return (output);
 }
