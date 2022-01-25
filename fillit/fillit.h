@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/25 09:20:44 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/25 12:22:00 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
 
-#include "./libft_mrozhnov/libft.h"
+//#include "./libft_mrozhnov/libft.h"
+# include "libft.h"
 # include <fcntl.h>
 # include <stdint.h>
 # include <unistd.h>
 
-//# define BUFF_SIZE 21
+# define BUFF_SIZE 21
 # define FETCH (unsigned char)0b0
 # define UPDATE (unsigned char)0b1
 # define SET (unsigned char)0b10
@@ -61,6 +62,12 @@ typedef struct s_tetrimino
 	char		debug_alphabet;
 }		t_tetrimino;
 
+typedef struct s_bitarr
+{
+	unsigned long	*arr;
+	unsigned long	len;
+	unsigned long	size;
+}	t_bitarr;
 
 long			errors(char *message, long output);
 t_tetrimino		*convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_string);
