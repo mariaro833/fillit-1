@@ -3,17 +3,39 @@
 
 #define TETRIMINO_LEN 16
 
-t_tetrimino	*convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_str)
+
+uint16_t	shift_left(uint16_t bitstring)
 {
-	t_tetrimino		*tetrimino;
-	uint8_t			c;
-	uint8_t			void_flag;
+	while (!(bitstring & (1 << 15)))
+		bitstring <<= 1;
+	return (bitstring);
+}
+
+t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
+{
+	t_tetri	*tetri_ref;
+
+	tetri_ref = tetrimino_reference(NULL, FETCH);
+	while (tetri_ref->shape)
+	{
+		if (shift_left(tetri_ref->shape) == tetrimino->shape)
+			return (tetri_ref->shape);
+		tetri_ref++;
+	}
+	return ((t_tetri *)errors("error", 0));
+}
+
+t_tetri	*convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_str)
+{
+	t_tetri		*tetrimino;
+	uint8_t		c;
+	uint8_t		void_flag;
 
 	(void)tetriminoes;
 
-	tetrimino = (t_tetrimino *)ft_memalloc(sizeof(t_tetrimino));
+	tetrimino = (t_tetri *)ft_memalloc(sizeof(t_tetri));
 	if (!tetrimino)
-		return ((t_tetrimino *)errors("mallocation issue", 0));
+		return ((t_tetri *)errors("mallocation issue", 0));
 	c = 0;
 	void_flag = (uint8_t)(-1);
 	while (1)
@@ -29,7 +51,7 @@ t_tetrimino	*convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_str)
 			break ;
 		tetrimino->binary_tetrimino <<= 1;
 	}
-	return (tetrimino);
+	return (match_binary_tetrimino(tetrimino));
 }
 
 
