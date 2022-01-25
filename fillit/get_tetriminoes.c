@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tetriminoes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/25 16:36:40 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 17:34:03 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,16 @@ int	get_tetriminoes(int fd, t_tetriminoes *tetriminoes, int *count)
 	size_t		ret_copy;
 
 	ret = read(fd, &buffer, BUFF_SIZE);
-	if (ret == -1 || ret == 0 || fd == -1)
+	if (ret <= 19)
 		return (0);
 	while (ret)
 	{
+		buffer[ret] = '\0';
 		if ((ret == 21 && buffer[20] != '\n') || !(validation(tetriminoes, buffer, count)))
 			return (errors ("error\n", -1));
 		if (ret == -1)
 			return (errors ("reader_error\n", 2));
-		buffer[ret] = '\0';
+		(*count)++;
 		ret = read(fd, &buffer, BUFF_SIZE);
 	}
 	return (1);
@@ -112,7 +113,8 @@ int		main(int argc, char **argv)
 	tetrimino_reference_init();
 	count = 0;
 	get_tetriminoes(fd, tetriminoes, &count);
-	close (fd);
+	if (close (fd) == -1)
+		return (errors ("close_error\n", -1));
 	function_loader_for_debugging();
 //	system("leaks a.out");
 	return (0);
