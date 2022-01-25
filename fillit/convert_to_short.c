@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:42:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/24 16:18:17 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/24 20:29:46 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ unsigned short	convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_stri
 	if (!tetrimino_string)
 		return (errors ("error", -1));
 
-	binary_tetr = (char *)malloc(24 + 1);
+	binary_tetr = (char *)ft_memalloc(16 + 1);
+	if (!binary_tetr)
+		return ((unsigned short)errors("malloc_issues", 0));
 	ft_strcpy (binary_tetr, "");
 	temp = tetrimino_string;
 	i = 0;
@@ -53,7 +55,6 @@ unsigned short	convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_stri
 			++i;
 		}
 		temp++;
-		binary__tetr = (unsigned short )
 		return (*(unsigned short *) binary_tetr);
 	}
 	return (0);

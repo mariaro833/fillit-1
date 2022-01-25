@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/24 16:04:53 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/25 09:18:27 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 		return (errors ("usage: Insert one argument after ./fillit\n", -1));
-	fd = open("test0.txt", O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (errors ("open_error\n", -1));
 	count = 0;

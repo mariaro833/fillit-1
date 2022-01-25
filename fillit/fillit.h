@@ -6,7 +6,7 @@
 /*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/24 15:47:35 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/25 09:20:44 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,18 @@ typedef struct s_tetriminoes
 	//			index;
 }				t_tetriminoes;
 
+typedef struct s_tetrimino
+{
+	uint16_t	binary_tetrimino;
+	uint8_t		width;
+	uint8_t		height;
+	uint8_t		voids;
+	char		debug_alphabet;
+}		t_tetrimino;
+
+
 long			errors(char *message, long output);
-unsigned short	convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_string);
+t_tetrimino		*convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_string);
+//unsigned short		convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_string);
 
 #endif
