@@ -6,18 +6,24 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/23 17:50:48 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 19:47:50 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
 
+# include "libft.h"
+# include <fcntl.h>
+# include <stdint.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+# define BUFF_SIZE 21
 # define FETCH (unsigned char)0b0
 # define UPDATE (unsigned char)0b1
-
 # define SET (unsigned char)0b10
-
+# define TETRIMINO_TYPES 19
 # define I_0 0b1111000000000000UL
 # define I_1 0b1000100010001000UL
 # define J_0 0b1110001000000000UL
@@ -48,13 +54,16 @@ typedef struct s_bitarr
 	unsigned long	size;
 }	t_bitarr;
 
+typedef struct s_tetri
+{
+	uint16_t	shape;
+	uint8_t		width;
+	uint8_t		height;
+	/*uint8_t	voids;*/
+}	t_tetri;
+
 void			bitarrzero(t_bitarr *bitarr);
 t_bitarr		*bitarray(unsigned long len, unsigned char flags);
-
-/*# define SPLIT_LEFT 0
-# define SPLIT_MIDDLE 1
-# define SPLIT_RIGHT 2*/
-
 unsigned long	pad_short(unsigned short tetrimino, unsigned long index, \
 	unsigned char board_width);
 void			split_long(unsigned long input, unsigned long index, \
@@ -69,4 +78,8 @@ char			*solve(unsigned short *tetriminoes, unsigned char board_size, \
 	char depth);
 void			display_solution_board(char *solution, \
 	unsigned long board_size);
+long			errors(char *message, long output);
+t_tetri			*convert_to_short(char *tetrimino_string);
+t_tetri			*tetrimino_reference(t_tetri *tetriminoes, uint8_t flag);
+
 #endif

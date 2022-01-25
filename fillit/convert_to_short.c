@@ -1,58 +1,111 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   convert_to_short.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 15:42:42 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/11 17:54:41 by thakala          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-# define TETRIMINO_WIDTH 4 //move to .h file
+#include "fillit.h"
+
+#define TETRIMINO_LEN 16
 
 
-
-static unsigned char	get_index(line_idx, character_idx)
+uint16_t	shift_left(uint16_t bitstring)
 {
-	return ();
+	while (!(bitstring & (1 << 15)))
+		bitstring <<= 1;
+	return (bitstring);
+}
+
+t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
+{
+	t_tetri	*tetri_ref;
+
+	tetri_ref = tetrimino_reference(NULL, FETCH);
+	while (tetri_ref->shape)
+	{
+		if (shift_left(tetri_ref->shape) == tetrimino->shape)
+		{
+			tetrimino->shape = tetri_ref->shape;
+			tetrimino->width = tetri_ref->width;
+			tetrimino->height = tetri_ref->height;
+			return (tetrimino);
+		}
+		tetri_ref++;
+	}
+	return (NULL);
 }
 
 /*
-	Assumes valid length of lines.
-	# (hashtag) for tetrimino
+	make convert_to_short void and assign directly to
+		main's tetriminoes t_tetri list
 */
 
-unsigned short	convert_to_short(const char **tetrimino_string)
+t_tetri	*convert_to_short(char *tetrimino_str)
 {
-	unsigned short	tetrimino;
-	unsigned char	line_idx;
-	unsigned char	character_idx;
-	char			character;
+	t_tetri		*tetrimino;
+	uint8_t		c;
+	uint8_t		void_flag;
 
-	tetrimino = 0;
-	line_idx = 0;
-	while (line_idx < TETRIMINO_WIDTH)
+	tetrimino = (t_tetri *)ft_memalloc(sizeof(t_tetri));
+	if (!tetrimino)
+		return ((t_tetri *)errors("mallocation issue", 0));
+	c = 0;
+	void_flag = (uint8_t)(-1);
+	while (1)
 	{
-		//if (ft_strlen(tetrimino_string[line_idx]) != 4)
-		character_idx = TETRIMINO_WIDTH;
-		while (0 <= character_idx + 1)
+		tetrimino_str += tetrimino_str[c] == '\n';
+		if (tetrimino_str[c] == '#')
 		{
-			if (tetrimino_string[line_idx][character_idx] == '#')
-			{
-				tetrimino = tetrimino | (0x1 << get_index(line_idx, character_idx));
-			}
-			else if ()
-			{
-				tetrimino = 0b0110110000000000;
-			}
-			else
-			{
-				
-			}
-			character_idx--;
+			if (void_flag == (uint8_t)(-1))
+				void_flag = c;
+			tetrimino->shape |= 1 << void_flag;
 		}
-		line_idx--;;
+		if (++c >= TETRIMINO_LEN)
+			break ;
+		tetrimino->shape <<= 1;
 	}
+	return (match_binary_tetrimino(tetrimino));
 }
+
+
+/*
+t_tetrimino	*convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_str)
+{
+	t_tetrimino		*tetrimino;
+	uint8_t			c;
+	uint8_t			void_flag;
+	uint8_t			void_count;
+	uint8_t			line_voids;
+
+	(void)tetriminoes;
+
+	tetrimino = (t_tetrimino *)ft_memalloc(sizeof(t_tetrimino));
+	if (!tetrimino)
+		return ((t_tetrimino *)errors("mallocation issue", 0));
+	c = 0;
+	void_flag = 1;
+	void_count = 0;
+	line_voids = 0;
+	while (c < TETRIMINO_LEN)
+	{
+		if (tetrimino_str[c] == '\n' && tetrimino_str++ && voids(line_voids))
+			line_voids = 0;
+		if (tetrimino_str[c] == '#')
+		{
+			void_flag = 0;
+			tetrimino->binary_tetrimino |= 1;
+		}
+		else
+			line_voids++;
+		if (void_flag)
+			void_count++;
+		tetrimino->binary_tetrimino <<= 1;
+		c++;
+	}
+	if (void_count > 4)
+	{
+		tetrimino->voids = void_count % 4;
+		tetrimino->binary_tetrimino <<= (void_count - void_count % 4);
+	}
+	else
+		tetrimino->binary_tetrimino <<= voids[0];
+	return (tetrimino);
+}
+*/
+
+
