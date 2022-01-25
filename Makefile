@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 14:43:44 by thakala           #+#    #+#              #
-#    Updated: 2022/01/11 15:06:50 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/24 18:47:16 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fillit
 
 FILLIT_DIR = fillit
 
-LIBFT_DIR = libft
+LIBFT = libft
 
 CC = clang
 
@@ -26,7 +26,10 @@ SOURCES = $(foreach function, $(FUNCTIONS), $(function).c)
 
 OBJECTS = $(foreach function, $(FUNCTIONS), $(function).o)
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
+
+$(LIBFT):
+	make -C libft/
 
 $(NAME): $(OBJECTS)
 
@@ -58,8 +61,10 @@ $(OBJECTS_DEBUG): $(SOURCES)
 
 clean:
 #	/bin/rm
+##	make -C libft/ clean
 
 fclean:
 #	/bin/rm
+##	make -C libft/ fclean
 
 re: fclean all
