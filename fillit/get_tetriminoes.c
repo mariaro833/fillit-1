@@ -6,13 +6,11 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/25 20:36:15 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 20:41:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-# include "helpers.h"
-# include <stdlib.h>
 
 static int	validation(t_tetri *tetrimino, char *line)
 {
@@ -56,14 +54,6 @@ int	get_tetriminoes(int fd, t_tetri *tetriminoes, int *count)
 			return (-1);
 	}
 	return (!!*count);
-}
-
-static void	function_loader_for_debugging(void)
-{
-	char			*t_2_ascii;
-
-	t_2_ascii = long_to_ascii_binary(T_2);
-	free(t_2_ascii);
 }
 
 void	tetrimino_reference_init(void)

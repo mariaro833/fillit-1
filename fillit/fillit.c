@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/25 20:25:03 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 20:51:24 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	fillit(t_tetri *tetriminoes, uint16_t tetrimino_count)
 	{
 		bitarray(board_size * board_size, UPDATE);
 		solution = solve(tetriminoes, board_size, 0);
-		if (!solution)
+		if (solution)
 			break ;
 		board_size++;
 	}
@@ -54,9 +54,9 @@ static void	function_loader_for_debugging(void)
 
 int	main(int argc, char **argv)
 {
-	int			fd;
-	int			count;
-	t_tetri		tetriminoes[27];
+	int				fd;
+	int				count;
+	static t_tetri	tetriminoes[27];
 
 	if (argc != 2)
 		return (errors ("usage: Insert one argument after ./fillit\n", -1));

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/25 20:25:45 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 20:40:52 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,7 @@ void			display_solution_board(char *solution, \
 long			errors(char *message, long output);
 t_tetri			*convert_to_short(char *tetrimino_string);
 t_tetri			*tetrimino_reference(t_tetri *tetriminoes, uint8_t flag);
+void			tetrimino_reference_init(void);
+int				get_tetriminoes(int fd, t_tetri *tetriminoes, int *count);
 
 #endif
