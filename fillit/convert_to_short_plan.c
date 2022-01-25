@@ -19,19 +19,27 @@ t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
 	while (tetri_ref->shape)
 	{
 		if (shift_left(tetri_ref->shape) == tetrimino->shape)
-			return (tetri_ref->shape);
+		{
+			tetrimino->shape = tetri_ref->shape;
+			tetrimino->width = tetri_ref->width;
+			tetrimino->height = tetri_ref->height;
+			return (tetrimino);
+		}
 		tetri_ref++;
 	}
-	return ((t_tetri *)errors("error", 0));
+	return (NULL);
 }
 
-t_tetri	*convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_str)
+/*
+	make convert_to_short void and assign directly to
+		main's tetriminoes t_tetri list
+*/
+
+t_tetri	*convert_to_short(char *tetrimino_str)
 {
 	t_tetri		*tetrimino;
 	uint8_t		c;
 	uint8_t		void_flag;
-
-	(void)tetriminoes;
 
 	tetrimino = (t_tetri *)ft_memalloc(sizeof(t_tetri));
 	if (!tetrimino)
