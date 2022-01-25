@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/25 18:13:26 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/25 19:21:19 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 # include "libft.h"
 # include <fcntl.h>
 # include <stdint.h>
+# include <stdlib.h>
 # include <unistd.h>
 
 # define BUFF_SIZE 21
 # define FETCH (unsigned char)0b0
 # define UPDATE (unsigned char)0b1
 # define SET (unsigned char)0b10
+# define TETRIMINO_TYPES 19
 # define I_0 0b1111000000000000UL
 # define I_1 0b1000100010001000UL
 # define J_0 0b1110001000000000UL
@@ -78,7 +80,7 @@ typedef struct s_tetri
 }	t_tetri;
 
 long			errors(char *message, long output);
-t_tetri		*convert_to_short(char *tetrimino_string);
+t_tetri			*convert_to_short(char *tetrimino_string);
 //unsigned short		convert_to_short(t_tetriminoes *tetriminoes, char *tetrimino_string);
 
 t_tetri			*tetrimino_reference(t_tetri *tetriminoes, uint8_t flag);

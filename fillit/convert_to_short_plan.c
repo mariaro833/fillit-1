@@ -53,11 +53,11 @@ t_tetri	*convert_to_short(char *tetrimino_str)
 		{
 			if (void_flag == (uint8_t)(-1))
 				void_flag = c;
-			tetrimino->binary_tetrimino |= 1 << void_flag;
+			tetrimino->shape |= 1 << void_flag;
 		}
 		if (++c >= TETRIMINO_LEN)
 			break ;
-		tetrimino->binary_tetrimino <<= 1;
+		tetrimino->shape <<= 1;
 	}
 	return (match_binary_tetrimino(tetrimino));
 }
