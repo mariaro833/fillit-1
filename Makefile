@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 14:43:44 by thakala           #+#    #+#              #
-#    Updated: 2022/01/26 16:25:00 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/26 19:54:10 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ FUNCTIONS = \
 	display \
 	fillit \
 	get_tetriminoes \
+	main \
 	pad_short \
 	place_alphabet \
 	solve \

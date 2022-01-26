@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/26 16:20:12 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 19:37:09 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ static char	*ft_strnewset(char chr, uint16_t len)
 		((char *)ft_memset(string, chr, len + 1))[len] = '\0';
 	return (string);
 }
+
+uint8_t	skip_index(uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
+{
+	if (*index % board_size > board_size - tetrimino->width)
+		*index += tetrimino->width - 1;
+	return (*index / board_size > board_size - tetrimino->height);
+}
+
 /*
 	change bitarray to a static function.
 */
@@ -56,10 +64,12 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth)
 	if (!tetriminoes[(uint64_t)depth].shape)
 		return (ft_strnewset('.', bitcount));
 	index = 0;
+	tetrilong = pad_short(tetriminoes[(uint64_t)depth].shape, index, (uint8_t)board_size);
 	while (index < bitcount)
 	{
-		tetrilong = pad_short(tetriminoes[(uint64_t)depth].shape, index, (uint8_t)board_size);
-		if (tetrilong != (uint64_t)(-1) && bitarrset(bitarray(bitcount, FETCH), index, tetrilong) == 1)
+		if (skip_index(&index, &tetriminoes[(uint64_t)depth], board_size))
+			return (NULL); // break ; (?)
+		if (bitarrset(bitarray(bitcount, FETCH), index, tetrilong >> index % ULONG_BITCOUNT) == 1)
 		{
 			answer = solve(tetriminoes, board_size, depth + 1);
 			if (answer)
