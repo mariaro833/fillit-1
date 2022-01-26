@@ -6,13 +6,13 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 14:43:44 by thakala           #+#    #+#              #
-#    Updated: 2022/01/26 13:45:15 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/26 13:53:22 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 
-FILLIT_DIR = fillit
+FILLIT_DIR = fillit_sources
 
 LIBFT = libft
 
