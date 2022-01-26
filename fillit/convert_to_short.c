@@ -4,14 +4,14 @@
 #define TETRIMINO_LEN 16
 
 
-uint16_t	shift_left(uint16_t bitstring)
+static uint16_t	shift_left(uint16_t bitstring)
 {
 	while (!(bitstring & (1 << 15)))
 		bitstring <<= 1;
 	return (bitstring);
 }
 
-t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
+static t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
 {
 	t_tetri	*tetri_ref;
 

@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 14:43:44 by thakala           #+#    #+#              #
-#    Updated: 2022/01/24 18:47:16 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/26 12:19:41 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,30 @@ FILLIT_DIR = fillit
 
 LIBFT = libft
 
-CC = clang
+CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
 FUNCTIONS = \
+	bitarray \
+	bitarrset \
+	bitarrunset \
+	bitarrzero \
+	convert_to_short \
+	display \
+	fillit \
+	get_tetriminoes \
+	pad_short \
+	place_alphabet \
+	solve \
+	split_long \
+	tetrimino_reference
 
-SOURCES = $(foreach function, $(FUNCTIONS), $(function).c)
+SOURCES = $(foreach function, $(FUNCTIONS), $(FILLIT_DIR)/$(function).c)
 
 OBJECTS = $(foreach function, $(FUNCTIONS), $(function).o)
+
+OBJ_DIR = $(FILLIT_DIR)/objects
 
 all: $(LIBFT) $(NAME)
 
@@ -32,9 +47,13 @@ $(LIBFT):
 	make -C libft/
 
 $(NAME): $(OBJECTS)
+	$(CC) $(CFLAGS) $(foreach o, $^, $(OBJ_DIR)/$(o)) -o $@
 
-$(OBJECTS): $(SOURCES)
-	$(CC) $(CFLAGS) $< -o $@
+$(OBJECTS): $(SOURCES) | directories
+	$(CC) $(CFLAGS) $< -o $(OBJ_DIR)/$@
+
+directories:
+	mkdir -p $(OBJ_DIR)
 
 ## BEGIN DEBUG
 #
