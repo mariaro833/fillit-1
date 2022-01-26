@@ -6,15 +6,15 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:27:50 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 12:08:05 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 16:01:47 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	display_solution_board(char *solution, unsigned long board_size)
+void	display_solution_board(char *solution, uint64_t board_size)
 {
-	unsigned long	height;
+	uint64_t	height;
 
 	height = 0;
 	while (height < board_size)

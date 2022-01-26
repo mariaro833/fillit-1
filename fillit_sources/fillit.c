@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 13:43:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 16:02:12 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	fillit(t_tetri *tetriminoes, uint16_t tetrimino_count)
 int	main(int argc, char **argv)
 {
 	int				fd;
-	int				count;
+	uint8_t			count;
 	static t_tetri	tetriminoes[27];
 
 	if (argc != 2)
