@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 14:43:44 by thakala           #+#    #+#              #
-#    Updated: 2022/01/26 13:53:22 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/26 16:25:00 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,16 +71,22 @@ DBGG_DIR = $(NAME)-debug
 
 OBJECTS_DEBUG = $(foreach function, $(FUNCTIONS), $(function)$(DBGGSUFFIX).o)
 
-debug: $(NAME)$(DBGGSUFFIX) | debug-dir
-	$(CC) $(DBFLAGS) $(OBJECTS_DEBUG) -o $(DBGG_DIR)/$(NAME)$(DBGGSUFFIX)
+debug: $(NAME)$(DBGGSUFFIX)
+#	$(CC) $(DBGGFLAGS) $(foreach o, $(OBJECTS_DEBUG), $(DBGG_DIR)/$(o)) \
+#		-o $(DBGG_DIR)/$(NAME)$(DBGGSUFFIX)
 
 debug-dir:
 	@mkdir -p $(DBGG_DIR)
 
 $(NAME)$(DBGGSUFFIX): $(OBJECTS_DEBUG)
+	$(CC) $(DBGGFLAGS) $(foreach o, $^, $(DBGG_DIR)/$(o)) -o $(DBGG_DIR)/$@ \
+		-L$(LIBFT_DIR) -lft \
+		-o $(DBGG_DIR)/$(NAME)$(DBGGSUFFIX)
 
-$(OBJECTS_DEBUG): $(SOURCES)
-	$(CC) $(DBGGFLAGS) -o $(patsubst %$(DBGGSUFFIX).o, %.o, $@)
+$(OBJECTS_DEBUG): $(SOURCES) | debug-dir
+	$(CC) $(DBGGFLAGS) -c $(patsubst %$(DBGGSUFFIX).o, $(FILLIT_DIR)/%.c, $@) \
+		$(foreach i, $(INCLUDE_DIRS), -I$(i)) \
+		-o $(patsubst %.o, $(DBGG_DIR)/%.o, $@)
 #
 ## END DEBUG
 

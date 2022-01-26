@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:51:26 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 15:56:29 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 16:19:51 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static uint8_t	final_shift(uint8_t board_size)
 	(uint64_t)(-1) into a #define ERROR
 	if statement return with (board_size * 4 % 64) == 0?
 		shift becomes 64, which is undefined behaviour...
+	break the function into smaller pieces that take responsibility of the
+		edge cases 2, 3
 */
 
 uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
@@ -56,7 +58,7 @@ uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
 	tetrilong = 0;
 	if (board_size >= TETRIMINO_SIZE - 2 && board_size <= MAX_BOARD_SIZE)
 	{
-		padding = board_size - TETRIMINO_SIZE;
+		padding = (int8_t)board_size - TETRIMINO_SIZE;
 		shift_modulus = index % board_size;
 		while (t)
 		{
@@ -66,7 +68,7 @@ uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
 			tetrilong = (tetrilong ^ tetrimino_line);
 			if (padding >= 0)
 				tetrilong <<= padding * !!t;
-			else if (redundancy_check(tetrilong, -padding))
+			else if (redundancy_check(tetrilong, (uint8_t)(-padding)))
 				tetrilong >>= -padding * !!t;
 			else
 				return ((uint64_t)(-1));
