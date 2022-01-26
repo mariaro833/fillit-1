@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_tetriminoes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/26 14:28:44 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/26 15:51:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int	validation(t_tetri *tetrimino, char *line)
+static int8_t	validation(t_tetri *tetrimino, char *line)
 {
 	uint8_t		i;
 	uint8_t		hashs;
@@ -35,7 +35,7 @@ static int	validation(t_tetri *tetrimino, char *line)
 	return (!!tetrimino);
 }
 
-int	get_tetriminoes(int fd, t_tetri *tetriminoes, int *count)
+int8_t	get_tetriminoes(int fd, t_tetri *tetriminoes, uint8_t *count)
 {
 	char		buffer[BUFF_SIZE + 1];
 	ssize_t		ret;

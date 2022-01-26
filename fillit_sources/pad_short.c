@@ -6,19 +6,20 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:51:26 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/24 08:27:22 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 15:56:29 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define ULONG_BITCOUNT 64
-#define TETRIMINO_SIZE 4
-#define MAX_BOARD_SIZE 20
-#define TETRIMINO_BITCOUNT 16
+#include "fillit.h"
 
-static unsigned char	redundancy_check(unsigned long tetrilong, \
-	short shift_modulus)
+/*
+	unnecessary temp checker var
+	unnecessary shift_modulus < 0 check?
+*/
+
+static uint8_t	redundancy_check(uint64_t tetrilong, uint8_t shift_modulus)
 {
-	unsigned long	checker;
+	uint64_t	checker;
 
 	if (shift_modulus < 0)
 		shift_modulus = 0;
@@ -30,7 +31,7 @@ static unsigned char	redundancy_check(unsigned long tetrilong, \
 	Call just once to calculate only once?
 */
 
-static unsigned char	final_shift(unsigned char board_size)
+static uint8_t	final_shift(uint8_t board_size)
 {
 	return (ULONG_BITCOUNT - \
 		(board_size * 3 + TETRIMINO_SIZE) % ULONG_BITCOUNT);
@@ -38,19 +39,18 @@ static unsigned char	final_shift(unsigned char board_size)
 
 /*
 	calculate total shift before shifting (board_size == 4)
-	(unsigned long)(-1) into a #define ERROR
+	(uint64_t)(-1) into a #define ERROR
 	if statement return with (board_size * 4 % 64) == 0?
 		shift becomes 64, which is undefined behaviour...
 */
 
-unsigned long	pad_short(unsigned short tetrimino, unsigned long index, \
-	unsigned char board_size)
+uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
 {
-	unsigned char	t;
-	unsigned char	tetrimino_line;
-	unsigned long	tetrilong;
-	char			padding;
-	unsigned char	shift_modulus;
+	uint8_t		t;
+	uint8_t		tetrimino_line;
+	uint64_t	tetrilong;
+	char		padding;
+	uint8_t		shift_modulus;
 
 	t = TETRIMINO_BITCOUNT;
 	tetrilong = 0;
@@ -69,14 +69,14 @@ unsigned long	pad_short(unsigned short tetrimino, unsigned long index, \
 			else if (redundancy_check(tetrilong, -padding))
 				tetrilong >>= -padding * !!t;
 			else
-				return ((unsigned long)(-1));
+				return ((uint64_t)(-1));
 			if (padding >= 0 && !redundancy_check(tetrilong, shift_modulus * !!t))
-				return ((unsigned long)(-1)); //(~tetrilong); // debug_error("piece doesn't fit the board", -1)
+				return ((uint64_t)(-1)); //(~tetrilong); // debug_error("piece doesn't fit the board", -1)
 		}
 		return (tetrilong << final_shift(board_size));
 	}
 	else if (board_size == TETRIMINO_SIZE)
-		return (((unsigned long)tetrimino) << 48);
+		return (((uint64_t)tetrimino) << 48);
 	else
-		return ((unsigned long)(-1)); //handle gracefully: "error"
+		return ((uint64_t)(-1)); //handle gracefully: "error"
 }

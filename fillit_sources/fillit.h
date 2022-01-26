@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 15:26:55 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/26 15:53:06 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,15 @@
 
 # define BYTE_BITCOUNT 8
 # define ULONG_BITCOUNT 64
+# define TETRIMINO_SIZE 4
+# define MAX_BOARD_SIZE 20
+# define TETRIMINO_BITCOUNT 16
 
 typedef struct s_bitarr
 {
-	unsigned long	*arr;
-	unsigned long	len;
-	unsigned long	size;
+	uint64_t	*arr;
+	uint64_t	len;
+	uint64_t	size;
 }	t_bitarr;
 
 typedef struct s_tetri
@@ -66,25 +69,25 @@ typedef struct s_tetri
 }	t_tetri;
 
 void			bitarrzero(t_bitarr *bitarr);
-t_bitarr		*bitarray(unsigned long len, unsigned char flags);
-unsigned long	pad_short(unsigned short tetrimino, unsigned long index, \
-	unsigned char board_width);
-void			split_long(unsigned long input, unsigned long index, \
-	unsigned long *left, unsigned long *right);
-unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
-	unsigned long bitstring);
-void			bitarrunset(t_bitarr *bitarr, unsigned long index, \
-	unsigned long bitstring);
+t_bitarr		*bitarray(uint64_t len, uint8_t flags);
+uint64_t		pad_short(uint16_t tetrimino, uint64_t index, \
+	uint8_t board_width);
+void			split_long(uint64_t input, uint64_t index, \
+	uint64_t *left, uint64_t *right);
+uint8_t			bitarrset(t_bitarr *bitarr, uint64_t index, \
+	uint64_t bitstring);
+void			bitarrunset(t_bitarr *bitarr, uint64_t index, \
+	uint64_t bitstring);
 void			place_alphabet(char *string, uint64_t tetrilong, \
 	uint64_t index, char alphabet);
 char			*solve(t_tetri *tetriminoes, uint8_t board_size, \
 	char depth);
 void			display_solution_board(char *solution, \
-	unsigned long board_size);
+	uint64_t board_size);
 long			errors(char *message, long output);
 t_tetri			*convert_to_short(char *tetrimino_string);
 t_tetri			*tetrimino_reference(t_tetri *tetriminoes, uint8_t flag);
 void			tetrimino_reference_init(void);
-int				get_tetriminoes(int fd, t_tetri *tetriminoes, int *count);
+int8_t			get_tetriminoes(int fd, t_tetri *tetriminoes, uint8_t *count);
 
 #endif

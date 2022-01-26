@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/26 15:27:59 by mrozhnova        ###   ########.fr       */
+/*   Updated: 2022/01/26 15:59:04 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 		the solution is not a solution.
 */
 
-static char	*ft_strnewset(char chr, unsigned long len)
+static char	*ft_strnewset(char chr, uint16_t len)
 {
 	char	*string;
 
@@ -41,11 +41,12 @@ static char	*ft_strnewset(char chr, unsigned long len)
 */
 /* list of tetriminoes ends with 0UL */
 
+/* tetriminoes[(uint64_t)depth] too big cast? */
 
 char	*solve(t_tetri *tetriminoes, uint8_t board_size, char depth)
 {
 	static uint16_t	bitcount;
-	uint64_t		index;
+	uint16_t		index;
 	uint64_t		tetrilong;
 	char			*answer;
 	//static t_bitarr	*bitarr;

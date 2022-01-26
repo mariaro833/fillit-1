@@ -6,24 +6,24 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:40:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 12:33:22 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 15:45:53 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static unsigned long	ceiling_division(unsigned long dividend, \
-	unsigned long divisor)
+static uint64_t	ceiling_division(uint64_t dividend, \
+	uint64_t divisor)
 {
-	unsigned long	division;
-	unsigned long	remnant_truth;
+	uint64_t	division;
+	uint64_t	remnant_truth;
 
 	division = dividend / divisor;
 	remnant_truth = !!(dividend % divisor);
 	return (division + remnant_truth);
 }
 
-t_bitarr	*bitarray(unsigned long len, unsigned char flags)
+t_bitarr	*bitarray(uint64_t len, uint8_t flags)
 {
 	static t_bitarr	*bitarr;
 
@@ -33,9 +33,9 @@ t_bitarr	*bitarray(unsigned long len, unsigned char flags)
 	{
 		bitarr->len = len;
 		free(bitarr->arr);
-		bitarr->size = sizeof(unsigned long) * \
+		bitarr->size = sizeof(uint64_t) * \
 			ceiling_division(len, ULONG_BITCOUNT);
-		bitarr->arr = (unsigned long *)malloc(bitarr->size);
+		bitarr->arr = (uint64_t *)malloc(bitarr->size);
 		bitarr->size *= BYTE_BITCOUNT;
 		if (!bitarr->arr)
 		{

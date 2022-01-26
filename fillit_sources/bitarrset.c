@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:55:47 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/23 13:24:12 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 15:46:53 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ index % CHAR_BITCOUNT - 1 == index % 8 - 1 == 20 % 8 - 1 == 4 - 1 == 3
 
 */
 
-static unsigned char	check_len_overrun(unsigned long len, \
-	unsigned long bitstring)
+static uint8_t	check_len_overrun(uint64_t len, uint64_t bitstring)
 {
 	unsigned short	shift;
 
@@ -51,13 +50,12 @@ static unsigned char	check_len_overrun(unsigned long len, \
 	remove check of existance of left, since tetriminoes are mostly on the left
 */
 
-unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
-	unsigned long bitstring)
+uint8_t	bitarrset(t_bitarr *bitarr, uint64_t index, uint64_t bitstring)
 {
-	unsigned long	left;
-	unsigned long	right;
-	unsigned long	index_division;
-	unsigned long	len_division;
+	uint64_t	left;
+	uint64_t	right;
+	uint64_t	index_division;
+	uint64_t	len_division;
 
 	split_long(bitstring, index, &left, &right);
 	index_division = index / ULONG_BITCOUNT;
@@ -66,7 +64,7 @@ unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
 		check_len_overrun(bitarr->len, left)) || \
 		(index_division + 1 == len_division && right && \
 		check_len_overrun(bitarr->len, right)))
-		return ((unsigned char)(-1));
+		return ((uint8_t)(-1));
 	if (!(bitarr->arr[index_division] & left))
 	{
 		if (right && index_division + 1 <= len_division)
@@ -96,11 +94,11 @@ set only the side which is not 0. Faster or not? Test.
 USE RATHER:
 !left !right
 
-unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
-	unsigned long bitstring)
+uint8_t	bitarrset(t_bitarr *bitarr, uint64_t index, \
+	uint64_t bitstring)
 {
-	unsigned long	left;
-	unsigned long	right;
+	uint64_t	left;
+	uint64_t	right;
 	unsigned int	status;
 	unsigned short	index_modulus;
 
