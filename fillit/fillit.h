@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/25 20:40:52 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 12:34:04 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define SET	0b0010U
 # define FREE	0b0100U
 # define TETRIMINO_TYPES 19
+# define TETRIMINO_LEN 16
 # define I_0 0b1111000000000000UL
 # define I_1 0b1000100010001000UL
 # define J_0 0b1110001000000000UL

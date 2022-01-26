@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 14:43:44 by thakala           #+#    #+#              #
-#    Updated: 2022/01/26 12:19:41 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/26 13:45:15 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = fillit
 FILLIT_DIR = fillit
 
 LIBFT = libft
+
+LIBFT_DIR = libft
 
 CC = gcc
 
@@ -35,6 +37,8 @@ FUNCTIONS = \
 	split_long \
 	tetrimino_reference
 
+INCLUDE_DIRS = $(FILLIT_DIR) $(LIBFT_DIR)
+
 SOURCES = $(foreach function, $(FUNCTIONS), $(FILLIT_DIR)/$(function).c)
 
 OBJECTS = $(foreach function, $(FUNCTIONS), $(function).o)
@@ -47,10 +51,12 @@ $(LIBFT):
 	make -C libft/
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(foreach o, $^, $(OBJ_DIR)/$(o)) -o $@
+	$(CC) $(CFLAGS) $(foreach o, $^, $(OBJ_DIR)/$(o)) -o $@ \
+		-L$(LIBFT_DIR) -lft
 
 $(OBJECTS): $(SOURCES) | directories
-	$(CC) $(CFLAGS) $< -o $(OBJ_DIR)/$@
+	$(CC) $(CFLAGS) -c $(patsubst %.o, $(FILLIT_DIR)/%.c, $@) -o $(OBJ_DIR)/$@ \
+		$(foreach i, $(INCLUDE_DIRS), -I$(i))
 
 directories:
 	mkdir -p $(OBJ_DIR)
@@ -87,3 +93,5 @@ fclean:
 ##	make -C libft/ fclean
 
 re: fclean all
+
+.PHONY: all $(LIBFT) clean fclean re

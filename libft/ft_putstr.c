@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: thakala <thakala@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 12:21:50 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 13:42:12 by thakala          ###   ########.fr       */
+/*   Created: 2021/11/03 11:56:19 by thakala           #+#    #+#             */
+/*   Updated: 2021/11/04 16:46:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
-# include <string.h>
+#include "libft.h"
+#include <unistd.h>
 
-void	*ft_memalloc(size_t size);
-void	ft_bzero(void *s, size_t n);
-void	*ft_memset(void *b, int c, size_t len);
-void	ft_putstr(char const *s);
-size_t	ft_strlen(const char *s);
-
-#endif
+void	ft_putstr(char const *s)
+{
+	write(1, s, ft_strlen(s));
+}

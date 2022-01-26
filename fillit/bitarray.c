@@ -6,13 +6,11 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:40:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/23 12:53:32 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 12:33:22 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include "libft.h"
-#include <stdlib.h>
 
 static unsigned long	ceiling_division(unsigned long dividend, \
 	unsigned long divisor)

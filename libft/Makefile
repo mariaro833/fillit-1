@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/31 11:42:48 by thakala           #+#    #+#              #
-#    Updated: 2022/01/20 10:56:37 by thakala          ###   ########.fr        #
+#    Updated: 2022/01/26 13:42:00 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ NAME = libft.a
 FUNCTIONS = \
 	ft_memalloc \
 	ft_bzero \
-	ft_memset
+	ft_memset \
+	ft_putstr \
+	ft_strlen
 
 SRCS = $(foreach src, $(FUNCTIONS), $(addsuffix .c, $(src)))
 
