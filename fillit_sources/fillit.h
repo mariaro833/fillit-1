@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 12:34:04 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 15:26:55 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define FREE	0b0100U
 # define TETRIMINO_TYPES 19
 # define TETRIMINO_LEN 16
+# define HASH_COUNT 4
 # define I_0 0b1111000000000000UL
 # define I_1 0b1000100010001000UL
 # define J_0 0b1110001000000000UL
@@ -74,8 +75,8 @@ unsigned char	bitarrset(t_bitarr *bitarr, unsigned long index, \
 	unsigned long bitstring);
 void			bitarrunset(t_bitarr *bitarr, unsigned long index, \
 	unsigned long bitstring);
-void			place_alphabet(char **string, unsigned long tetrilong, \
-	unsigned long index, char alphabet);
+void			place_alphabet(char *string, uint64_t tetrilong, \
+	uint64_t index, char alphabet);
 char			*solve(t_tetri *tetriminoes, uint8_t board_size, \
 	char depth);
 void			display_solution_board(char *solution, \

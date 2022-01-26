@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tetriminoes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: mrozhnova <mrozhnova@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/26 12:06:36 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/26 14:28:44 by mrozhnova        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	validation(t_tetri *tetrimino, char *line)
 			++hashs;
 		i++;
 	}
-	if (hashs != 4)
+	if (hashs != HASH_COUNT)
 		return (0);
 	*tetrimino = *convert_to_short(line);
 	return (!!tetrimino);
