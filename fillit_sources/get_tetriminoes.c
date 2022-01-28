@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/26 15:51:32 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/28 10:46:41 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int8_t	validation(t_tetri *tetrimino, char *line)
 {
 	uint8_t		i;
 	uint8_t		hashs;
+	t_tetri		*tmp;
 
 	hashs = 0;
 	i = 0;
@@ -31,7 +32,9 @@ static int8_t	validation(t_tetri *tetrimino, char *line)
 	}
 	if (hashs != HASH_COUNT)
 		return (0);
-	*tetrimino = *convert_to_short(line);
+	tmp = convert_to_short(line);
+	if (tmp)
+		*tetrimino = *tmp;
 	return (!!tetrimino);
 }
 
