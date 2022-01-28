@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/27 08:40:26 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/28 14:34:52 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ static char	*ft_strnewset(char chr, uint16_t len)
 		((char *)ft_memset(string, chr, len + 1))[len] = '\0';
 	return (string);
 }
+
+/*
+	save division by using a height variable row
+*/
 
 uint8_t	skip_index(uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
 {
