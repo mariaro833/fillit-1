@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:40:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 15:45:53 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/28 11:18:26 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static uint64_t	ceiling_division(uint64_t dividend, \
 	remnant_truth = !!(dividend % divisor);
 	return (division + remnant_truth);
 }
+
+// bitarrfree
 
 t_bitarr	*bitarray(uint64_t len, uint8_t flags)
 {
