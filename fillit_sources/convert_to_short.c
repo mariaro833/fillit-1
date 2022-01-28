@@ -6,16 +6,19 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 12:33:50 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 12:33:53 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/28 14:50:46 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static uint16_t	shift_left(uint16_t bitstring)
+static uint16_t	shift_left(uint16_t bitstring, uint8_t *voids)
 {
 	while (!(bitstring & (1 << 15)))
+	{
 		bitstring <<= 1;
+		(*voids)++;
+	}
 	return (bitstring);
 }
 
@@ -26,7 +29,7 @@ static t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
 	tetri_ref = tetrimino_reference(NULL, FETCH);
 	while (tetri_ref->shape)
 	{
-		if (shift_left(tetri_ref->shape) == tetrimino->shape)
+		if (shift_left(tetri_ref->shape, &tetri_ref->voids) == tetrimino->shape)
 		{
 			tetrimino->shape = tetri_ref->shape;
 			tetrimino->width = tetri_ref->width;
