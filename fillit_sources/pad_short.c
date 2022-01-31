@@ -6,25 +6,21 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:51:26 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 19:36:12 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 14:04:04 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-	unnecessary temp checker var
 	unnecessary shift_modulus < 0 check?
 */
 
 static uint8_t	redundancy_check(uint64_t tetrilong, uint8_t shift_modulus)
 {
-	uint64_t	checker;
-
 	if (shift_modulus < 0)
 		shift_modulus = 0;
-	checker = tetrilong;
-	return ((checker >> shift_modulus) << shift_modulus == tetrilong);
+	return ((tetrilong >> shift_modulus) << shift_modulus == tetrilong);
 }
 
 /*
