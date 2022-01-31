@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:51:26 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/31 14:04:04 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 14:57:06 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,36 @@ static uint8_t	final_shift(uint8_t board_size)
 		edge cases 2, 3
 */
 
+/*uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
+{
+	uint8_t		t;
+	uint8_t		tetrimino_line;
+	uint64_t	tetrilong;
+	int8_t		padding;
+
+	t = TETRIMINO_BITCOUNT;
+	if (board_size > TETRIMINO_SIZE)
+	{
+		padding = board_size - TETRIMINO_SIZE;
+		while (t)
+		{
+			tetrilong <<= TETRIMINO_SIZE;
+			t -= TETRIMINO_SIZE;
+			tetrimino_line = (tetrimino >> t) & 0b1111;
+			tetrilong = (tetrilong ^ tetrimino_line);
+			tetrilong <<= padding * !!t;
+		}
+		return (tetrilong << final_shift(board_size));
+	}
+	else if (board_size == TETRIMINO_SIZE)
+		return (((uint64_t)tetrimino) << (64 - TETRIMINO_BITCOUNT));
+	else
+	{
+		padding = board_size - TETRIMINO_SIZE
+	}
+}*/
+
+
 uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
 {
 	uint8_t		t;
@@ -52,7 +82,7 @@ uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
 
 	t = TETRIMINO_BITCOUNT;
 	tetrilong = 0;
-	if (board_size >= TETRIMINO_SIZE - 2 && board_size <= MAX_BOARD_SIZE)
+	if (board_size >= TETRIMINO_SIZE - 2)
 	{
 		padding = (int8_t)board_size - TETRIMINO_SIZE;
 		shift_modulus = index % board_size;
