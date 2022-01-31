@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/31 15:46:31 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:06:15 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ uint8_t	skip_index(uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
 /* list of tetriminoes ends with 0UL */
 /* tetriminoes[(uint64_t)depth] too big cast? */
 
-char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth)
+char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth,
+	t_bitarr *bitarr)
 {
 	static uint16_t	bitcount;
 	uint16_t		index;
 	uint64_t		tetrilong;
 	char			*answer;
-	//uint16_t		when_to_skip;
 	//static t_bitarr	*bitarr;
+	//uint16_t		when_to_skip;
 
 	if (!bitcount)
 		bitcount = board_size * board_size;
@@ -55,16 +56,16 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth)
 	{
 		if (skip_index(&index, &tetriminoes[(uint64_t)depth], board_size))
 			break ;
-		if (bitarrset(bitarray(bitcount, FETCH), index, tetrilong) == 1)
+		if (bitarrset(bitarr, index, tetrilong) == 1)
 		{
-			answer = solve(tetriminoes, board_size, depth + 1);
+			answer = solve(tetriminoes, board_size, depth + 1, bitarr);
 			if (answer)
 			{
 				place_alphabet(answer, tetrilong, index, depth + 'A');
 				bitcount = 0;
 				return (answer);
 			}
-			bitarrunset(bitarray(bitcount, FETCH), index, tetrilong);
+			bitarrunset(bitarr, index, tetrilong);
 		}
 		index++;
 	}

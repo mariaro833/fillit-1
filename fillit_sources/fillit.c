@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/28 10:10:05 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:00:28 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ int	fillit(t_tetri *tetriminoes, uint16_t tetrimino_count)
 {
 	uint16_t	board_size;
 	char		*solution;
+	t_bitarr	*bitarr;
 
 	board_size = min_board(tetrimino_count * 4);
 	solution = (char *)0;
 	while (1)
 	{
-		bitarray(board_size * board_size, UPDATE);
+		bitarr = bitarray(board_size * board_size, UPDATE);
 		// bitarray failure?
-		solution = solve(tetriminoes, board_size, 0);
+		solution = solve(tetriminoes, board_size, 0, bitarr);
 		if (solution)
 			break ;
 		board_size++;
