@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/31 18:19:31 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 20:18:50 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ typedef struct s_tetri
 	//uint8_t		voids;
 	//uint8_t		packing_offset;
 	//struct s_tetri	*previous;
-	//uint8_t		x;
-	//uint8_t		y;
+	//uint8_t		col;
+	//uint8_t		row;
 }	t_tetri;
 
 void			bitarrzero(t_bitarr *bitarr);
