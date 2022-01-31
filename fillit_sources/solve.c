@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/28 14:34:52 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 11:43:24 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth)
 	uint16_t		index;
 	uint64_t		tetrilong;
 	char			*answer;
+	//uint16_t		when_to_skip;
 	//static t_bitarr	*bitarr;
 
 	if (!bitcount)
 		bitcount = board_size * board_size;
 	if (!tetriminoes[(uint64_t)depth].shape)
 		return (ft_strnewset('.', bitcount));
-	index = 0;
+	index = 0;//tetriminoes[(uint64_t)depth].voids;
 	tetrilong = pad_short(tetriminoes[(uint64_t)depth].shape, index, (uint8_t)board_size);
 	while (index < bitcount)
 	{

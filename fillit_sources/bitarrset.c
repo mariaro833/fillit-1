@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:55:47 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 15:46:53 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 11:42:14 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ index % CHAR_BITCOUNT - 1 == index % 8 - 1 == 20 % 8 - 1 == 4 - 1 == 3
 
 */
 
-static uint8_t	check_len_overrun(uint64_t len, uint64_t bitstring)
+/*static uint8_t	check_len_overrun(uint64_t len, uint64_t bitstring)
 {
 	unsigned short	shift;
 
@@ -43,14 +43,42 @@ static uint8_t	check_len_overrun(uint64_t len, uint64_t bitstring)
 	if (shift == ULONG_BITCOUNT && bitstring)
 		return (1);
 	return (((bitstring >> shift) << shift) != bitstring);
-}
+}*/
 
 /*
 	Add len_division as a member to t_bitarr struct?
 	remove check of existance of left, since tetriminoes are mostly on the left
 */
 
+
 uint8_t	bitarrset(t_bitarr *bitarr, uint64_t index, uint64_t bitstring)
+{
+	uint64_t	left;
+	uint64_t	right;
+	uint64_t	index_division;
+	//uint64_t	len_division;
+
+	split_long(bitstring, index, &left, &right);
+	index_division = index / ULONG_BITCOUNT;
+	//len_division = bitarr->len / ULONG_BITCOUNT; //store in bitarr struct
+	/*if ((index_division == len_division && left && \
+		check_len_overrun(bitarr->len, left)) || \
+		(index_division + 1 == len_division && right && \
+		check_len_overrun(bitarr->len, right)))
+		return ((uint8_t)(-1));*/
+	if (!(bitarr->arr[index_division] & left) && \
+		!(bitarr->arr[index_division + 1] & right))
+	{
+		bitarr->arr[index_division] |= left;
+		bitarr->arr[index_division + 1] |= right;
+		return (1);
+	}
+	return (0);
+}
+
+
+
+/*uint8_t	bitarrset(t_bitarr *bitarr, uint64_t index, uint64_t bitstring)
 {
 	uint64_t	left;
 	uint64_t	right;
@@ -59,7 +87,7 @@ uint8_t	bitarrset(t_bitarr *bitarr, uint64_t index, uint64_t bitstring)
 
 	split_long(bitstring, index, &left, &right);
 	index_division = index / ULONG_BITCOUNT;
-	len_division = bitarr->len / ULONG_BITCOUNT;
+	len_division = bitarr->len / ULONG_BITCOUNT; //store in bitarr struct
 	if ((index_division == len_division && left && \
 		check_len_overrun(bitarr->len, left)) || \
 		(index_division + 1 == len_division && right && \
@@ -78,14 +106,14 @@ uint8_t	bitarrset(t_bitarr *bitarr, uint64_t index, uint64_t bitstring)
 			else
 				return (0);
 		}
-		else if (!right)
+		else// if (!right) //trust skip_index?
 		{
 			bitarr->arr[index_division] |= left;
 			return (1);
 		}
 	}
 	return (0);
-}
+}*/
 
 /*
 split_long returns the value which split of the long has bits to set.
