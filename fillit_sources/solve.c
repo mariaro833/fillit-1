@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/31 17:06:15 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 18:50:55 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,55 @@ static char	*ft_strnewset(char chr, uint16_t len)
 	save division by using a height variable row
 */
 
-uint8_t	skip_index(uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
+uint8_t	skip_index(uint8_t *col, uint8_t *row, \
+	t_tetri *tetrimino, uint16_t board_size)
 {
-	if (*index % board_size > board_size - tetrimino->width)
-		*index += tetrimino->width - 1;
-	return (*index / board_size > board_size - tetrimino->height);
+	if (*col > board_size - tetrimino->width)
+	{
+		*col = 0;
+		(*row)++;
+		return (*row <= board_size - tetrimino->height);
+	}
+	return (1);
 }
 
 /* list of tetriminoes ends with 0UL */
 /* tetriminoes[(uint64_t)depth] too big cast? */
 
+char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth,
+	t_bitarr *bitarr)
+{
+	uint8_t			col;
+	uint8_t			row;
+	uint16_t		index;
+	uint64_t		tetrilong;
+	char			*answer;
+
+	if (!tetriminoes[(uint64_t)depth].shape)
+		return (ft_strnewset('.', board_size * board_size));
+	col = 0;
+	row = 0;
+	index = 0;
+	tetrilong = pad_short(tetriminoes[(uint64_t)depth].shape, index, (uint8_t)board_size);
+	while (skip_index(&col, &row, &tetriminoes[(uint64_t)depth], board_size))
+	{
+		if (bitarrset(bitarr, index, tetrilong))
+		{
+			answer = solve(tetriminoes, board_size, depth + 1, bitarr);
+			if (answer)
+			{
+				place_alphabet(answer, tetrilong, index, depth + 'A');
+				return (answer);
+			}
+			bitarrunset(bitarr, index, tetrilong);
+		}
+		col++;
+		index++;
+	}
+	return (NULL);
+}
+
+/*
 char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth,
 	t_bitarr *bitarr)
 {
@@ -73,3 +112,4 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth,
 		bitcount = 0;
 	return (NULL);
 }
+*/

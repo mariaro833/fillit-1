@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/31 18:11:19 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 18:19:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ typedef struct s_tetri
 	uint16_t	shape;
 	uint8_t		width;
 	uint8_t		height;
+	//uint8_t		voids;
 	//uint8_t		packing_offset;
+	//struct s_tetri	*previous;
 	//uint8_t		x;
 	//uint8_t		y;
 }	t_tetri;
