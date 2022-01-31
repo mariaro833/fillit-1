@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:40:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/28 11:18:26 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 18:09:52 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_bitarr	*bitarray(uint64_t len, uint8_t flags)
 		bitarr->len = len;
 		free(bitarr->arr);
 		bitarr->size = sizeof(uint64_t) * \
-			ceiling_division(len, ULONG_BITCOUNT);
+			(ceiling_division(len, ULONG_BITCOUNT) + 1);
 		bitarr->arr = (uint64_t *)malloc(bitarr->size);
 		bitarr->size *= BYTE_BITCOUNT;
 		if (!bitarr->arr)
