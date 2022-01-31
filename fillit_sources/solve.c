@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/31 20:04:35 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 20:35:30 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth,
 	col = 0;
 	row = 0;
 	index = 0;
-	tetrilong = pad_short(tetriminoes[(uint64_t)depth].shape, index, (uint8_t)board_size);
+	tetrilong = pad_short(tetriminoes[(uint64_t)depth].shape, (uint8_t)board_size);
 	while (skip_index(&col, &row, &index, &tetriminoes[(uint64_t)depth], board_size))
 	{
 		if (bitarrset(bitarr, index, tetrilong))
@@ -82,43 +82,3 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth,
 	}
 	return (NULL);
 }
-
-/*
-char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth,
-	t_bitarr *bitarr)
-{
-	static uint16_t	bitcount;
-	uint16_t		index;
-	uint64_t		tetrilong;
-	char			*answer;
-	//static t_bitarr	*bitarr;
-	//uint16_t		when_to_skip;
-
-	if (!bitcount)
-		bitcount = board_size * board_size;
-	if (!tetriminoes[(uint64_t)depth].shape)
-		return (ft_strnewset('.', bitcount));
-	index = 0;
-	tetrilong = pad_short(tetriminoes[(uint64_t)depth].shape, index, (uint8_t)board_size);
-	while (index < bitcount)
-	{
-		if (skip_index(&index, &tetriminoes[(uint64_t)depth], board_size))
-			break ;
-		if (bitarrset(bitarr, index, tetrilong) == 1)
-		{
-			answer = solve(tetriminoes, board_size, depth + 1, bitarr);
-			if (answer)
-			{
-				place_alphabet(answer, tetrilong, index, depth + 'A');
-				bitcount = 0;
-				return (answer);
-			}
-			bitarrunset(bitarr, index, tetrilong);
-		}
-		index++;
-	}
-	if (!depth)
-		bitcount = 0;
-	return (NULL);
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:51:26 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/31 14:57:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/01/31 20:43:03 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 	unnecessary shift_modulus < 0 check?
 */
 
-static uint8_t	redundancy_check(uint64_t tetrilong, uint8_t shift_modulus)
+/*static uint8_t	redundancy_check(uint64_t tetrilong, uint8_t shift_modulus)
 {
 	if (shift_modulus < 0)
 		shift_modulus = 0;
 	return ((tetrilong >> shift_modulus) << shift_modulus == tetrilong);
-}
+}*/
 
 /*
 	Call just once to calculate only once?
@@ -40,9 +40,11 @@ static uint8_t	final_shift(uint8_t board_size)
 		shift becomes 64, which is undefined behaviour...
 	break the function into smaller pieces that take responsibility of the
 		edge cases 2, 3
+	function pointer to three different versions of pad_short
+		to reduce the if statements in this function!
 */
 
-/*uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
+uint64_t	pad_short(uint16_t tetrimino, uint8_t board_size)
 {
 	uint8_t		t;
 	uint8_t		tetrimino_line;
@@ -52,7 +54,7 @@ static uint8_t	final_shift(uint8_t board_size)
 	t = TETRIMINO_BITCOUNT;
 	if (board_size > TETRIMINO_SIZE)
 	{
-		padding = board_size - TETRIMINO_SIZE;
+		padding = (int8_t)board_size - TETRIMINO_SIZE;
 		while (t)
 		{
 			tetrilong <<= TETRIMINO_SIZE;
@@ -67,11 +69,20 @@ static uint8_t	final_shift(uint8_t board_size)
 		return (((uint64_t)tetrimino) << (64 - TETRIMINO_BITCOUNT));
 	else
 	{
-		padding = board_size - TETRIMINO_SIZE
+		padding = (int8_t)board_size - TETRIMINO_SIZE;
+		while (t)
+		{
+			tetrilong <<= TETRIMINO_SIZE;
+			t -= TETRIMINO_SIZE;
+			tetrimino_line = (tetrimino >> t) & 0b1111;
+			tetrilong = (tetrilong ^ tetrimino_line);
+			tetrilong >>= -padding * !!t;
+		}
+		return (tetrilong << final_shift(board_size));
 	}
-}*/
+}
 
-
+/*
 uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
 {
 	uint8_t		t;
@@ -107,4 +118,4 @@ uint64_t	pad_short(uint16_t tetrimino, uint64_t index, uint8_t board_size)
 		return (((uint64_t)tetrimino) << 48);
 	else
 		return ((uint64_t)(-1)); //handle gracefully: "error"
-}
+}*/
