@@ -6,15 +6,11 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 17:46:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 14:19:27 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 23:01:20 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-/*
-	Sort the tetrimino_reference list and use binary search on it.
-*/
 
 t_tetri_	*tetrimino_reference(t_tetri_ *tetriminoes, \
 	uint8_t flag)

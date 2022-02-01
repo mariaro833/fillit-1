@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/01 20:00:48 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 23:01:10 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,6 @@ static char	*ft_strnewset(char chr, uint16_t len)
 	return (string);
 }
 
-/*uint16_t	set_index(t_bitarr *bitarr)
-{
-	uint16_t	c;
-	uint8_t		division;
-	uint8_t		division_index;
-
-	c = 0;
-	division = 0;
-	division_index = 0;
-	while (c < bitarr->len)
-	{
-		division_index++;
-		if (!(bitarr->arr[division] & (1 << (ULONG_BITCOUNT - division_index))))
-			return (c);
-		if (division_index == ULONG_BITCOUNT)
-		{
-			division_index = 0;
-			division++;
-		}
-		c++;
-	}
-	return (c);
-}*/
-
-/*
-	save division by using a height variable row
-	use local copy to safe dereferenciation time?
-	t_tetri local;
-
-	local = *tetrimino;
-*/
-
 uint8_t	skip_index(uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
 {
 	if (tetrimino->col > board_size - tetrimino->width)
@@ -65,8 +33,6 @@ uint8_t	skip_index(uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
 	}
 	return (1);
 }
-
-/* list of tetriminoes ends with 0UL */
 
 char	*solve(t_tetri *tetriminoes, uint16_t board_size, t_bitarr *bitarr, \
 	uint64_t pad_short(uint16_t tetrimino, uint8_t board_size))
