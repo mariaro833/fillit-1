@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 12:33:50 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/31 14:00:47 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:25:39 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static uint16_t	shift_left(uint16_t bitstring)
 
 static t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
 {
-	t_tetri	*tetri_ref;
+	static uint8_t	count;
+	t_tetri_		*tetri_ref;
 
 	tetri_ref = tetrimino_reference(NULL, FETCH);
 	while (tetri_ref->shape)
@@ -31,6 +32,9 @@ static t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
 			tetrimino->shape = tetri_ref->shape;
 			tetrimino->width = tetri_ref->width;
 			tetrimino->height = tetri_ref->height;
+			tetrimino->col = 0U;
+			tetrimino->row = 0U;
+			tetrimino->depth = count++;
 			return (tetrimino);
 		}
 		tetri_ref++;

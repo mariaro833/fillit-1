@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/31 20:35:17 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:25:45 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,24 @@ typedef struct s_bitarr
 	uint64_t	size;
 }	t_bitarr;
 
+typedef struct s_tetri_
+{
+	uint16_t	shape;
+	uint8_t		width;
+	uint8_t		height;
+}	t_tetri_;
+
 typedef struct s_tetri
 {
 	uint16_t	shape;
 	uint8_t		width;
 	uint8_t		height;
+	uint8_t		col;
+	uint8_t		row;
+	uint8_t		depth;
 	//uint8_t		voids;
 	//uint8_t		packing_offset;
 	//struct s_tetri	*previous;
-	//uint8_t		col;
-	//uint8_t		row;
 }	t_tetri;
 
 void			bitarrzero(t_bitarr *bitarr);
@@ -90,7 +98,7 @@ void			display_solution_board(char *solution, \
 	uint64_t board_size);
 long			errors(char *message, long output);
 t_tetri			*convert_to_short(char *tetrimino_string);
-t_tetri			*tetrimino_reference(t_tetri *tetriminoes, uint8_t flag);
+t_tetri_		*tetrimino_reference(t_tetri_ *tetriminoes, uint8_t flag);
 void			tetrimino_reference_init(void);
 int8_t			get_tetriminoes(int fd, t_tetri *tetriminoes, uint8_t *count);
 int				fillit(t_tetri *tetriminoes, uint16_t tetrimino_count);

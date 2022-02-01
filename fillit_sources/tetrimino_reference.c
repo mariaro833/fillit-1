@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 17:46:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 12:06:19 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:19:27 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 	Sort the tetrimino_reference list and use binary search on it.
 */
 
-t_tetri	*tetrimino_reference(t_tetri *tetriminoes, \
+t_tetri_	*tetrimino_reference(t_tetri_ *tetriminoes, \
 	uint8_t flag)
 {
-	static t_tetri	*tetris;
+	static t_tetri_	*tetris;
 	uint8_t			i;
 
 	if (flag & SET && tetriminoes)
 	{
-		tetris = (t_tetri *)malloc(sizeof(t_tetri) * (TETRIMINO_TYPES + 1));
+		tetris = (t_tetri_ *)malloc(sizeof(t_tetri_) * (TETRIMINO_TYPES + 1));
 		if (tetris)
 		{
 			i = 0;
@@ -47,25 +47,25 @@ t_tetri	*tetrimino_reference(t_tetri *tetriminoes, \
 
 void	tetrimino_reference_init(void)
 {
-	tetrimino_reference((t_tetri []) \
-		{(struct s_tetri){I_0, 4U, 1U},
-		(struct s_tetri){I_1, 1U, 4U},
-		(struct s_tetri){J_0, 3U, 2U},
-		(struct s_tetri){J_1, 2U, 3U},
-		(struct s_tetri){J_2, 3U, 2U},
-		(struct s_tetri){J_3, 2U, 3U},
-		(struct s_tetri){L_0, 3U, 2U},
-		(struct s_tetri){L_1, 2U, 3U},
-		(struct s_tetri){L_2, 3U, 2U},
-		(struct s_tetri){L_3, 2U, 3U},
-		(struct s_tetri){O_0, 2U, 2U},
-		(struct s_tetri){S_0, 3U, 2U},
-		(struct s_tetri){S_1, 2U, 3U},
-		(struct s_tetri){T_0, 3U, 2U},
-		(struct s_tetri){T_1, 2U, 3U},
-		(struct s_tetri){T_2, 3U, 2U},
-		(struct s_tetri){T_3, 2U, 3U},
-		(struct s_tetri){Z_0, 3U, 2U},
-		(struct s_tetri){Z_1, 2U, 3U},
-		(struct s_tetri){0U, 0U, 0U}}, SET);
+	tetrimino_reference((t_tetri_ []) \
+		{(struct s_tetri_){I_0, 4U, 1U},
+		(struct s_tetri_){I_1, 1U, 4U},
+		(struct s_tetri_){J_0, 3U, 2U},
+		(struct s_tetri_){J_1, 2U, 3U},
+		(struct s_tetri_){J_2, 3U, 2U},
+		(struct s_tetri_){J_3, 2U, 3U},
+		(struct s_tetri_){L_0, 3U, 2U},
+		(struct s_tetri_){L_1, 2U, 3U},
+		(struct s_tetri_){L_2, 3U, 2U},
+		(struct s_tetri_){L_3, 2U, 3U},
+		(struct s_tetri_){O_0, 2U, 2U},
+		(struct s_tetri_){S_0, 3U, 2U},
+		(struct s_tetri_){S_1, 2U, 3U},
+		(struct s_tetri_){T_0, 3U, 2U},
+		(struct s_tetri_){T_1, 2U, 3U},
+		(struct s_tetri_){T_2, 3U, 2U},
+		(struct s_tetri_){T_3, 2U, 3U},
+		(struct s_tetri_){Z_0, 3U, 2U},
+		(struct s_tetri_){Z_1, 2U, 3U},
+		(struct s_tetri_){0U, 0U, 0U}}, SET);
 }

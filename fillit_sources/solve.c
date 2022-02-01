@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/01/31 21:05:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:37:56 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ft_strnewset(char chr, uint16_t len)
 	return (string);
 }
 
-uint16_t	set_index(t_bitarr *bitarr)
+/*uint16_t	set_index(t_bitarr *bitarr)
 {
 	uint16_t	c;
 	uint8_t		division;
@@ -44,21 +44,20 @@ uint16_t	set_index(t_bitarr *bitarr)
 		c++;
 	}
 	return (c);
-}
+}*/
 
 /*
 	save division by using a height variable row
 */
 
-uint8_t	skip_index(uint8_t *col, uint8_t *row, \
-	uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
+uint8_t	skip_index(uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
 {
-	if (*col > board_size - tetrimino->width)
+	if (tetrimino->col > board_size - tetrimino->width)
 	{
-		*col = 0;
-		(*row)++;
+		tetrimino->col = 0;
+		tetrimino->row++;
 		*index += tetrimino->width - 1;
-		return (*row <= board_size - tetrimino->height);
+		return (tetrimino->row <= board_size - tetrimino->height);
 	}
 	return (1);
 }
@@ -69,19 +68,15 @@ uint8_t	skip_index(uint8_t *col, uint8_t *row, \
 char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth,
 	t_bitarr *bitarr)
 {
-	uint8_t			col;
-	uint8_t			row;
 	uint16_t		index;
 	uint64_t		tetrilong;
 	char			*answer;
 
 	if (!tetriminoes[(uint64_t)depth].shape)
 		return (ft_strnewset('.', board_size * board_size));
-	col = 0;
-	row = 0;
-	index = set_index(bitarr);//, tetriminoes[(uint64_t)depth].voids);
+	index = 0;//set_index(bitarr);//, tetriminoes[(uint64_t)depth].voids);
 	tetrilong = pad_short(tetriminoes[(uint64_t)depth].shape, (uint8_t)board_size);
-	while (skip_index(&col, &row, &index, &tetriminoes[(uint64_t)depth], board_size))
+	while (skip_index(&index, &tetriminoes[(uint64_t)depth], board_size))
 	{
 		if (bitarrset(bitarr, index, tetrilong))
 		{
@@ -93,8 +88,10 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, char depth,
 			}
 			bitarrunset(bitarr, index, tetrilong);
 		}
-		col++;
+		tetriminoes[(uint64_t)depth].col++;
 		index++;
 	}
+	tetriminoes[(uint64_t)depth].col = 0;
+	tetriminoes[(uint64_t)depth].row = 0;
 	return (NULL);
 }
