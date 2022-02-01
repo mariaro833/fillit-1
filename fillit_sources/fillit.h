@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 17:48:29 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 19:59:20 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ typedef struct s_tetri
 void			bitarrzero(t_bitarr *bitarr);
 void			bitarrfree(t_bitarr **bitarr);
 t_bitarr		*bitarray(uint64_t len, uint8_t flags);
-uint64_t		pad_short(uint16_t tetrimino, uint8_t board_width);
+uint64_t		pad_short_gt_4(uint16_t tetrimino, uint8_t board_size);
+uint64_t		pad_short_eq_4(uint16_t tetrimino, uint8_t board_size);
+uint64_t		pad_short_lt_4(uint16_t tetrimino, uint8_t board_size);
 uint8_t			final_shift(uint8_t board_size, uint8_t flag);
 void			split_long(uint64_t input, uint64_t index, \
 	uint64_t *left, uint64_t *right);
@@ -95,7 +97,8 @@ void			bitarrunset(t_bitarr *bitarr, uint64_t index, \
 char			*place_alphabet(char *string, uint64_t tetrilong, \
 	uint64_t index, t_tetri *tetrimino);
 char			*solve(t_tetri *tetriminoes, uint16_t board_size, \
-	t_bitarr *bitarr);
+	t_bitarr *bitarr, \
+	uint64_t pad_short(uint16_t tetrimino, uint8_t board_size));
 void			display_solution_board(char *solution, \
 	uint64_t board_size);
 long			errors(char *message, long output);

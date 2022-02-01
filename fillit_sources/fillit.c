@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 17:49:25 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 20:01:28 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ static uint16_t	min_board(uint16_t square_count)
 	while (result * result < square_count)
 		result++;
 	return (result);
+}
+
+static char	*solver(t_tetri *tetriminoes, uint8_t board_size, t_bitarr *bitarr)
+{
+	if (board_size > 4)
+		return (solve(tetriminoes, board_size, bitarr, pad_short_gt_4));
+	else if (board_size == 4)
+		return (solve(tetriminoes, board_size, bitarr, pad_short_eq_4));
+	else
+		return (solve(tetriminoes, board_size, bitarr, pad_short_lt_4));
 }
 
 int	fillit(t_tetri *tetriminoes, uint16_t tetrimino_count)
@@ -36,7 +46,7 @@ int	fillit(t_tetri *tetriminoes, uint16_t tetrimino_count)
 		bitarr = bitarray(board_size * board_size, UPDATE);
 		if (!bitarr)
 			return ((int) errors("bitarray malloc error", 3));
-		solution = solve(tetriminoes, board_size, bitarr);
+		solution = solver(tetriminoes, (uint8_t)board_size, bitarr);
 		if (solution)
 			break ;
 		board_size++;
