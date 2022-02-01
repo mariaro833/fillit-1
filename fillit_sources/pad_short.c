@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 10:51:26 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 15:02:41 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 18:55:35 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 	Call just once to calculate only once?
 */
 
-static uint8_t	final_shift(uint8_t board_size)
+uint8_t	final_shift(uint8_t board_size, uint8_t flag)
 {
-	return (ULONG_BITCOUNT - \
-		(board_size * 3 + TETRIMINO_SIZE) % ULONG_BITCOUNT);
+	static uint8_t	shift;
+
+	if (flag & TOGGLE)
+		return (shift = ULONG_BITCOUNT - \
+			(board_size * 3 + TETRIMINO_SIZE) % ULONG_BITCOUNT);
+	return (shift);
 }
 
 /*
@@ -52,7 +56,7 @@ uint64_t	pad_short(uint16_t tetrimino, uint8_t board_size)
 			tetrilong = (tetrilong ^ tetrimino_line);
 			tetrilong <<= padding * !!t;
 		}
-		return (tetrilong << final_shift(board_size));
+		return (tetrilong << final_shift(0, 0));
 	}
 	else if (board_size == TETRIMINO_SIZE)
 		return (((uint64_t)tetrimino) << (64 - TETRIMINO_BITCOUNT));
@@ -67,6 +71,6 @@ uint64_t	pad_short(uint16_t tetrimino, uint8_t board_size)
 			tetrilong = (tetrilong ^ tetrimino_line);
 			tetrilong >>= -padding * !!t;
 		}
-		return (tetrilong << final_shift(board_size));
+		return (tetrilong << final_shift(0, 0));
 	}
 }

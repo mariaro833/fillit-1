@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 15:24:23 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 17:48:29 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define UPDATE 0b0001U
 # define SET	0b0010U
 # define FREE	0b0100U
+# define TOGGLE	0b1000U
 # define TETRIMINO_TYPES 19
 # define TETRIMINO_LEN 16
 # define HASH_COUNT 4
@@ -84,6 +85,7 @@ void			bitarrzero(t_bitarr *bitarr);
 void			bitarrfree(t_bitarr **bitarr);
 t_bitarr		*bitarray(uint64_t len, uint8_t flags);
 uint64_t		pad_short(uint16_t tetrimino, uint8_t board_width);
+uint8_t			final_shift(uint8_t board_size, uint8_t flag);
 void			split_long(uint64_t input, uint64_t index, \
 	uint64_t *left, uint64_t *right);
 uint8_t			bitarrset(t_bitarr *bitarr, uint64_t index, \
