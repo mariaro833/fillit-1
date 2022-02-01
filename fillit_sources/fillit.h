@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 15:24:23 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 16:00:27 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ typedef struct s_tetri
 	uint8_t		col;
 	uint8_t		row;
 	uint8_t		depth;
-	//uint8_t		voids;
+	uint8_t		voids_l;
+	uint8_t		voids_r;
 	//uint8_t		packing_offset;
 	//struct s_tetri	*previous;
 }	t_tetri;
