@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 14:53:07 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:10:16 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ uint8_t			bitarrset(t_bitarr *bitarr, uint64_t index, \
 	uint64_t bitstring);
 void			bitarrunset(t_bitarr *bitarr, uint64_t index, \
 	uint64_t bitstring);
-void			place_alphabet(char *string, uint64_t tetrilong, \
+char			*place_alphabet(char *string, uint64_t tetrilong, \
 	uint64_t index, t_tetri *tetrimino);
 char			*solve(t_tetri *tetriminoes, uint16_t board_size, \
 	t_bitarr *bitarr);

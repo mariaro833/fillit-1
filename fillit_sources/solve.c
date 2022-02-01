@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/01 14:52:45 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:08:58 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,7 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, t_bitarr *bitarr)
 		{
 			answer = solve(tetriminoes + 1, board_size, bitarr);
 			if (answer)
-			{
-				place_alphabet(answer, tetrilong, index, tetriminoes);
-				return (answer);
-			}
+				return (place_alphabet(answer, tetrilong, index, tetriminoes));
 			bitarrunset(bitarr, index, tetrilong);
 		}
 		tetriminoes->col++;

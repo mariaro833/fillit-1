@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 15:21:45 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 14:47:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:08:49 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 	Index variable points to a position in the board and in the string.
 */
 
-void	place_alphabet(char *answer, uint64_t tetrilong, \
+char	*place_alphabet(char *answer, uint64_t tetrilong, \
 	uint64_t index, t_tetri *tetrimino)
 {
 	char	alphabet;
@@ -37,4 +37,5 @@ void	place_alphabet(char *answer, uint64_t tetrilong, \
 		index++;
 		tetrilong <<= 1;
 	}
+	return (answer);
 }
