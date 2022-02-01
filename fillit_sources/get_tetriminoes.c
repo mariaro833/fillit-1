@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/01 15:22:04 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 20:33:02 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int8_t	validation(t_tetri *tetrimino, char *line)
 	tmp = convert_to_short(line);
 	if (tmp)
 		*tetrimino = *tmp;
+	free(tmp);
 	return (!!tetrimino->shape);
 }
 
