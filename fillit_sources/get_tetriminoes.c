@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:52:45 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/01 14:26:11 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:22:04 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int8_t	get_tetriminoes(int fd, t_tetri *tetriminoes, uint8_t *count)
 	char		buffer[BUFF_SIZE + 1];
 	ssize_t		ret;
 
+	tetrimino_reference_init();
 	while (1)
 	{
 		ret = read(fd, &buffer, BUFF_SIZE);
@@ -56,5 +57,6 @@ int8_t	get_tetriminoes(int fd, t_tetri *tetriminoes, uint8_t *count)
 			!validation(&tetriminoes[*count], buffer) || ++(*count) > 26)
 			return (-1);
 	}
+	tetrimino_reference(NULL, FREE);
 	return (!!*count);
 }

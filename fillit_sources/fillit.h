@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 15:10:16 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:24:23 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ typedef struct s_tetri
 }	t_tetri;
 
 void			bitarrzero(t_bitarr *bitarr);
+void			bitarrfree(t_bitarr **bitarr);
 t_bitarr		*bitarray(uint64_t len, uint8_t flags);
-uint64_t		pad_short(uint16_t tetrimino,
-	uint8_t board_width);
+uint64_t		pad_short(uint16_t tetrimino, uint8_t board_width);
 void			split_long(uint64_t input, uint64_t index, \
 	uint64_t *left, uint64_t *right);
 uint8_t			bitarrset(t_bitarr *bitarr, uint64_t index, \

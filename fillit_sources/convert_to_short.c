@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 12:33:50 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 14:25:39 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:13:20 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
 	t_tetri_		*tetri_ref;
 
 	tetri_ref = tetrimino_reference(NULL, FETCH);
+	if (!tetri_ref)
+		return (NULL);
 	while (tetri_ref->shape)
 	{
 		if (shift_left(tetri_ref->shape) == tetrimino->shape)

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 06:40:56 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/31 19:58:46 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:16:34 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ static uint64_t	ceiling_division(uint64_t dividend, \
 	return (division + remnant_truth);
 }
 
-// bitarrfree
+void	bitarrfree(t_bitarr **bitarr)
+{
+	free((*bitarr)->arr);
+	free(*bitarr);
+	*bitarr = NULL;
+}
 
 t_bitarr	*bitarray(uint64_t len, uint8_t flags)
 {
@@ -41,7 +46,7 @@ t_bitarr	*bitarray(uint64_t len, uint8_t flags)
 		bitarr->size *= BYTE_BITCOUNT;
 		if (!bitarr->arr)
 		{
-			free(bitarr); //optional bitarrdel here
+			free(bitarr);
 			bitarr = NULL;
 			return (NULL);
 		}

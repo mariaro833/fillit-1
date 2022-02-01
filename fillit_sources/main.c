@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:48:17 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 19:49:29 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:22:00 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return ((int)errors ("open_error\n", 2));
-	tetrimino_reference_init();
 	count = 0;
 	if (get_tetriminoes(fd, tetriminoes, &count) <= 0)
 		return ((int)errors ("error\n", -1));
