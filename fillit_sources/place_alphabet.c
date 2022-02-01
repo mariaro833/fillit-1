@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 15:21:45 by thakala           #+#    #+#             */
-/*   Updated: 2022/01/26 15:57:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:47:08 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 */
 
 void	place_alphabet(char *answer, uint64_t tetrilong, \
-	uint64_t index, char alphabet)
+	uint64_t index, t_tetri *tetrimino)
 {
+	char	alphabet;
 	uint8_t	c;
 
+	alphabet = (char)tetrimino->depth + 'A';
 	c = 0;
 	while (c < HASH_COUNT)
 	{
