@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 21:24:51 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/01 22:51:43 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static uint16_t	min_board(t_tetri *tetriminoes, uint16_t square_count)
 		result++;
 	if (result == 2 && tetriminoes->shape != O_0)
 		result += 1 + (tetriminoes->width == 4 || tetriminoes->height == 4);
-	if (result == 3)
+	else if (result == 3)
 		if (tetriminoes->width == 4 || tetriminoes++->height == 4 \
 			|| tetriminoes->width == 4 || tetriminoes->height == 4)
 			result++;
