@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/02 04:04:49 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 19:24:10 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ int8_t			get_tetriminoes(int fd, t_tetri *tetriminoes, uint8_t *count);
 int				fillit(t_tetri *tetriminoes, uint16_t tetrimino_count);
 void			link_tetriminoes(t_tetri *tetriminoes);
 uint64_t		bitarrcheck(t_bitarr *bitarr, uint16_t index);
+char			*ft_strnewset(char chr, uint16_t len);
 
 #endif

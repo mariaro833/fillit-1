@@ -6,13 +6,13 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/02 05:22:06 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 17:07:13 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static char	*ft_strnewset(char chr, uint16_t len)
+char	*ft_strnewset(char chr, uint16_t len)
 {
 	char	*string;
 
