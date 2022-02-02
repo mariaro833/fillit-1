@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 14:43:44 by thakala           #+#    #+#              #
-#    Updated: 2022/02/02 03:11:56 by thakala          ###   ########.fr        #
+#    Updated: 2022/02/02 03:37:30 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ FUNCTIONS = \
 	bitarrset \
 	bitarrunset \
 	bitarrzero \
+	bitarrcheck \
 	convert_to_short \
 	display \
 	fillit \

@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/01 23:01:10 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 03:40:08 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,26 @@ static char	*ft_strnewset(char chr, uint16_t len)
 	if (string)
 		((char *)ft_memset(string, chr, len + 1))[len] = '\0';
 	return (string);
+}
+
+/*
+	please improve the search with binary search tree!
+	linear search like this while loop could be way slower?
+	Look into the algorithm to create such binary tree numerals.
+	Only put into gear such optimisation for boards that it is necessary for.
+*/
+
+uint16_t	set_index(t_tetri *tetriminoes, uint8_t board_size, \
+	t_bitarr *bitarr)
+{
+	t_tetri		previous;
+	uint16_t	index;
+
+	previous = *(tetriminoes - tetriminoes->previous);
+	index = board_size * previous.row + previous.col;
+	while (bitarrcheck(bitarr, index))
+		index++;
+	return (index);
 }
 
 uint8_t	skip_index(uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
@@ -43,7 +63,7 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, t_bitarr *bitarr, \
 
 	if (!tetriminoes->shape)
 		return (ft_strnewset('.', board_size * board_size));
-	index = 0;
+	index = set_index(tetriminoes, (uint8_t)board_size, bitarr);
 	tetrilong = pad_short(tetriminoes->shape, (uint8_t)board_size);
 	while (skip_index(&index, tetriminoes, board_size))
 	{
