@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 19:48:17 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 20:34:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 03:09:57 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv)
 	count = 0;
 	if (get_tetriminoes(fd, tetriminoes, &count) <= 0)
 		return ((int)errors ("error\n", -1));
+	link_tetriminoes(tetriminoes);
 	if (close (fd) == -1)
 		return ((int)errors ("close_error\n", 2));
 	return (fillit(tetriminoes, count));

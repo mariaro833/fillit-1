@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:51:32 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/01 20:12:09 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 03:09:35 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_tetri
 	uint8_t		col;
 	uint8_t		row;
 	uint8_t		depth;
+	uint8_t		previous;
 }	t_tetri;
 
 void			bitarrzero(t_bitarr *bitarr);
@@ -104,5 +105,6 @@ t_tetri_		*tetrimino_reference(t_tetri_ *tetriminoes, uint8_t flag);
 void			tetrimino_reference_init(void);
 int8_t			get_tetriminoes(int fd, t_tetri *tetriminoes, uint8_t *count);
 int				fillit(t_tetri *tetriminoes, uint16_t tetrimino_count);
+void			link_tetriminoes(t_tetri *tetriminoes);
 
 #endif
