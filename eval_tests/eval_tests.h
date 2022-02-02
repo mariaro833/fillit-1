@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 20:17:01 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/02 20:57:08 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 21:11:32 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@
 
 void	display_current_board(t_bitarr *bitarr, t_tetri *tetriminoes, \
 	uint8_t board_size);
+void	display_current_board_depth(t_bitarr *bitarr, t_tetri *tetriminoes, \
+	uint8_t board_size, uint8_t recursion_depth);
 
 #endif
