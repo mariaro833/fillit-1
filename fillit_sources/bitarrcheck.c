@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 03:32:55 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/02 03:47:26 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 04:35:09 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ uint64_t	bitarrcheck(t_bitarr *bitarr, uint16_t index)
 
 	index_modulus = index % ULONG_BITCOUNT;
 	return ((bitarr->arr[index / ULONG_BITCOUNT] \
-		& 1ULL << (ULONG_BITCOUNT - index_modulus)));
+		& 1ULL << (ULONG_BITCOUNT - index_modulus - 1)));
 }
 
 /*uint8_t	bitarrcheck(t_bitarr *bitarr, uint16_t index)
