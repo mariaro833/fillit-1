@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 17:13:25 by thakala           #+#    #+#              #
-#    Updated: 2022/02/02 20:25:48 by thakala          ###   ########.fr        #
+#    Updated: 2022/02/02 20:30:48 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,7 @@ display_current_solution: $(OBJ_DIR)/display_current_solution.o | directories
 display_current_solution$(DBGGSUFFIX): $(DISPLAY_CURRENT_SOLUTION_DEBUG_DEPENDENCIES) | directories
 	$(CC) $(DBGGFLAGS) -o $@.out \
 		$(FILLIT_DEBUG_OBJECTS_CWD) \
-		$(patsubst %$(DBGGSUFFIX), $(OBJ_DIR)/%.o, $@)	\
+		$(patsubst %, $(OBJ_DIR)/%.o, $@)	\
 		-I $(FILLIT_INCLUDES) \
 		$(LIBFT_DIR)/$(LIBFT_LIB)
 
