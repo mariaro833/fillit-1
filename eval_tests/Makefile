@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 17:13:25 by thakala           #+#    #+#              #
-#    Updated: 2022/02/02 20:30:48 by thakala          ###   ########.fr        #
+#    Updated: 2022/02/02 20:52:30 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,19 @@ LIBFT_LIB = libft.a
 LIBFT_RULE_IN_FILLIT = libft
 LIBFT_INCLUDES = $(LIBFT_DIR)
 
+HELPER_FUNCTIONS = \
+	ascii_to_long_binary \
+	ascii_to_short_binary \
+	display_tetrimino_long \
+	display_tetrimino_short \
+	long_to_ascii_binary \
+	short_to_ascii_binary \
+	display_bitarray
+
+HELPER_OBJECTS = $(foreach hf, ${HELPER_FUNCTIONS:=.o}, $(HELPER_DIR)/objects/$(hf))
+HELPER_DIR = helpers
+HELPER_LIB = $(HELPER_DIR)/libhelp.a
+
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
 DBGGFLAGS = $(CFLAGS) -g -Wconversion
@@ -72,7 +85,8 @@ DISPLAY_CURRENT_SOLUTION_DEPENDENCIES = \
 DISPLAY_CURRENT_SOLUTION_DEBUG_DEPENDENCIES = \
 	$(LIBFT_RULE_IN_FILLIT) \
 	$(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR) \
-	$(OBJ_DIR)/display_current_solution$(DBGGSUFFIX).o
+	$(OBJ_DIR)/display_current_solution$(DBGGSUFFIX).o \
+	$(HELPER_LIB)
 
 all: $(OBJECTS) $(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR)
 	echo "all rule called"
@@ -96,15 +110,21 @@ $(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR):
 $(LIBFT_RULE_IN_FILLIT):
 	make -C $(FILLIT_DIR) $@
 
+$(HELPER_LIB):
+	echo "helper library rule called"
+	make -C $(HELPER_DIR)
+
 display_current_solution: $(OBJ_DIR)/display_current_solution.o | directories
 	$(CC) $(CFLAGS) -o $@.out
 
 display_current_solution$(DBGGSUFFIX): $(DISPLAY_CURRENT_SOLUTION_DEBUG_DEPENDENCIES) | directories
 	$(CC) $(DBGGFLAGS) -o $@.out \
 		$(FILLIT_DEBUG_OBJECTS_CWD) \
-		$(patsubst %, $(OBJ_DIR)/%.o, $@)	\
+		$(patsubst %, $(OBJ_DIR)/%.o, $@) \
+		$(HELPER_OBJECTS) \
 		-I $(FILLIT_INCLUDES) \
-		$(LIBFT_DIR)/$(LIBFT_LIB)
+		$(LIBFT_DIR)/$(LIBFT_LIB) \
+		$(HELPER_LIB)
 
 directories:
 	echo "directories order-only rule called"
