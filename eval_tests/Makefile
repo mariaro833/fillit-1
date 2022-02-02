@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 17:13:25 by thakala           #+#    #+#              #
-#    Updated: 2022/02/02 20:13:42 by thakala          ###   ########.fr        #
+#    Updated: 2022/02/02 20:25:48 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SOURCES := $(foreach s, $(SOURCES), $(SRC_DIR)/$(s))
 
 OBJECTS = ${FILES:=.o}
 OBJ_DIR = objects
-OBJECTS := $(foreach s, $(OBJECTS), $(OBJ_DIR)/$(s))
+OBJECTS := $(foreach o, $(OBJECTS), $(OBJ_DIR)/$(o))
+OBJECTS_DEBUG = $(foreach o, $(FILES), $(OBJ_DIR)/$(o)$(DBGGSUFFIX).o)
 
 FILLIT_FILES = \
 	get_tetriminoes \
@@ -71,7 +72,7 @@ DISPLAY_CURRENT_SOLUTION_DEPENDENCIES = \
 DISPLAY_CURRENT_SOLUTION_DEBUG_DEPENDENCIES = \
 	$(LIBFT_RULE_IN_FILLIT) \
 	$(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR) \
-	$(OBJ_DIR)/display_current_solution.o
+	$(OBJ_DIR)/display_current_solution$(DBGGSUFFIX).o
 
 all: $(OBJECTS) $(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR)
 	echo "all rule called"
@@ -79,6 +80,12 @@ all: $(OBJECTS) $(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR)
 $(OBJECTS): $(SOURCES) | directories
 	echo "object rule called"
 	$(CC) $(CFLAGS) -o $@ -c $(patsubst $(OBJ_DIR)/%.o, $(SRC_DIR)/%.c, $@) \
+		-I $(FILLIT_INCLUDES) \
+		-I $(LIBFT_INCLUDES)
+
+$(OBJECTS_DEBUG): $(SOURCES) | directories
+	echo "object rule called"
+	$(CC) $(DBGGFLAGS) -o $@ -c $(patsubst $(OBJ_DIR)/%$(DBGGSUFFIX).o, $(SRC_DIR)/%.c, $@) \
 		-I $(FILLIT_INCLUDES) \
 		-I $(LIBFT_INCLUDES)
 

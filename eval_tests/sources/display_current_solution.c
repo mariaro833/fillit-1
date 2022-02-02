@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 16:49:23 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/02 17:12:28 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 20:27:31 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	display_current_board(t_bitarr *bitarr, t_tetri *tetriminoes, \
 	uint16_t	index;
 	uint8_t		hashes;
 
-	board_state = ft_strnewset('.', bitarr->len + 1);
+	board_state = ft_strnewset('.', (uint16_t)(bitarr->len + 1));
 	board_state[bitarr->len] = '\0';
 	if (board_size > 4)
 		tetrilong = pad_short_gt_4(tetriminoes->shape, board_size);
@@ -38,7 +38,7 @@ void	display_current_board(t_bitarr *bitarr, t_tetri *tetriminoes, \
 			{
 				if (tetrilong & (1U << (ULONG_BITCOUNT - index % ULONG_BITCOUNT)))
 				{
-						board_state[index] = tetriminoes->depth + 'A';
+						board_state[index] = (char)(tetriminoes->depth + 'A');
 					hashes++;
 				}
 			}

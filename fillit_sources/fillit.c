@@ -6,12 +6,13 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/02 03:58:34 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 20:19:01 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 	# include	<unistd.h>
+	# include	"../eval_tests/eval_tests.h"
 
 void	display_bitarray(t_bitarr *bitarr, unsigned long board_size)
 {
@@ -88,6 +89,7 @@ int	fillit(t_tetri *tetriminoes, uint16_t tetrimino_count)
 		final_shift((uint8_t)board_size, TOGGLE);
 		bitarr = bitarray(board_size * board_size, UPDATE);
 		display_bitarray(bitarr, board_size);
+		display_current_board(bitarr, tetriminoes, (uint8_t)board_size);
 		if (!bitarr)
 			return ((int) errors("bitarray malloc error", 3));
 		solution = solver(tetriminoes, (uint8_t)board_size, bitarr);
