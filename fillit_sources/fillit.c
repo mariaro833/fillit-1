@@ -6,15 +6,15 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:55:48 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/02 20:19:01 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 20:54:38 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-	# include	<unistd.h>
+	//# include	<unistd.h>
 	# include	"../eval_tests/eval_tests.h"
 
-void	display_bitarray(t_bitarr *bitarr, unsigned long board_size)
+/*void	display_bitarray(t_bitarr *bitarr, unsigned long board_size)
 {
 	unsigned long	c;
 	unsigned long	bitcount;
@@ -48,7 +48,7 @@ void	display_bitarray(t_bitarr *bitarr, unsigned long board_size)
 		c++;
 	}
 	write(1, "\n\n", 2);
-}
+}*/
 
 static uint16_t	min_board(t_tetri *tetriminoes, uint16_t square_count)
 {
