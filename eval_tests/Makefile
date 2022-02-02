@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 17:13:25 by thakala           #+#    #+#              #
-#    Updated: 2022/02/02 19:39:54 by thakala          ###   ########.fr        #
+#    Updated: 2022/02/02 19:49:02 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ FILLIT_FILES = \
 	convert_to_short \
 	bitarray \
 	bitarrset \
+	bitarrcheck \
 	split_long \
 	bitarrunset \
 	bitarrzero \
@@ -47,14 +48,18 @@ FILLIT_OBJECTS_CWD = \
 	$(foreach ff, $(FILLIT_FILES), $(FILLIT_OBJECTS_DIR)/$(ff).o)
 FILLIT_OBJECTS_IN_FILLIT_DIR = \
 	 ${FILLIT_FILES:=.o}
+FILLIT_INCLUDES = $(FILLIT_SOURCES_DIR)
 LIBFT_DIR = ../libft
 LIBFT_LIB = libft.a
+LIBFT_RULE_IN_FILLIT = libft
+LIBFT_INCLUDES = $(LIBFT_DIR)
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
 DBGGFLAGS = -g -Wconversion
 
 DISPLAY_CURRENT_SOLUTION_DEPENDENCIES = \
+	$(LIBFT_RULE_IN_FILLIT) \
 	$(FILLIT_OBJECTS_IN_FILLIT_DIR) \
 	$(OBJ_DIR)/display_current_solution.o
 
@@ -63,12 +68,16 @@ all: $(OBJECTS) $(FILLIT_OBJECTS_IN_FILLIT_DIR)
 
 $(OBJECTS): $(SOURCES) | directories
 	echo "object rule called"
-	$(CC) $(CFLAGS) -o $@ -c $(patsubst $(OBJ_DIR)/%.o, $(SRC_DIR)/%.c, $@)
+	$(CC) $(CFLAGS) -o $@ -c $(patsubst $(OBJ_DIR)/%.o, $(SRC_DIR)/%.c, $@) \
+		-I $(FILLIT_INCLUDES) \
+		-I $(LIBFT_INCLUDES)
 
 $(FILLIT_OBJECTS_IN_FILLIT_DIR):
 	echo "fillit object rule called"
 	make -C $(FILLIT_DIR) $@
 
+$(LIBFT_RULE_IN_FILLIT):
+	make -C $(FILLIT_DIR) $@
 
 display_current_solution: $(OBJ_DIR)/display_current_solution.o | directories
 	$(CC) $(CFLAGS) -o $@.out
@@ -77,7 +86,9 @@ display_current_solution: $(OBJ_DIR)/display_current_solution.o | directories
 display_current_solution$(DBGGSUFFIX): $(DISPLAY_CURRENT_SOLUTION_DEPENDENCIES) | directories
 	$(CC) $(DBGGFLAGS) -o $@.out \
 		$(FILLIT_OBJECTS_CWD) \
-		$(patsubst %$(DBGGSUFFIX), %.o, $@)
+		$(patsubst %$(DBGGSUFFIX), $(OBJ_DIR)/%.o, $@)	\
+		-I $(FILLIT_INCLUDES) \
+		$(LIBFT_DIR)/$(LIBFT_LIB)
 
 directories:
 	echo "directories order-only rule called"
