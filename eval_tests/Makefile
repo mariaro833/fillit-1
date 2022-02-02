@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 17:13:25 by thakala           #+#    #+#              #
-#    Updated: 2022/02/02 20:06:52 by thakala          ###   ########.fr        #
+#    Updated: 2022/02/02 20:13:42 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ FILLIT_OBJECTS_IN_FILLIT_DIR = \
 FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR = \
 	$(foreach ff, $(FILLIT_FILES), $(ff)$(DBGGSUFFIX).o)
 FILLIT_DEBUG_OBJECTS_CWD = \
-	$(foreach ff, ${FILLIT_FILES:=.o}, $(FILLIT_DEBUG_DIR)/$(ff))
+	$(foreach ff, $(FILLIT_FILES), $(FILLIT_DEBUG_DIR)/$(ff)$(DBGGSUFFIX).o)
 FILLIT_INCLUDES = $(FILLIT_SOURCES_DIR)
 LIBFT_DIR = ../libft
 LIBFT_LIB = libft.a
@@ -94,7 +94,7 @@ display_current_solution: $(OBJ_DIR)/display_current_solution.o | directories
 
 display_current_solution$(DBGGSUFFIX): $(DISPLAY_CURRENT_SOLUTION_DEBUG_DEPENDENCIES) | directories
 	$(CC) $(DBGGFLAGS) -o $@.out \
-		$(FILLIT_OBJECTS_CWD) \
+		$(FILLIT_DEBUG_OBJECTS_CWD) \
 		$(patsubst %$(DBGGSUFFIX), $(OBJ_DIR)/%.o, $@)	\
 		-I $(FILLIT_INCLUDES) \
 		$(LIBFT_DIR)/$(LIBFT_LIB)
