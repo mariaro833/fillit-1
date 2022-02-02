@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/02 17:13:25 by thakala           #+#    #+#              #
-#    Updated: 2022/02/02 19:49:02 by thakala          ###   ########.fr        #
+#    Updated: 2022/02/02 20:06:52 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,12 +42,17 @@ FILLIT_FILES = \
 DBGGSUFFIX = -debug
 
 FILLIT_DIR = ..
-FILLIT_SOURCES_DIR = ../fillit_sources
+FILLIT_SOURCES_DIR = $(FILLIT_DIR)/fillit_sources
+FILLIT_DEBUG_DIR = $(FILLIT_DIR)/fillit-debug
 FILLIT_OBJECTS_DIR = $(FILLIT_SOURCES_DIR)/objects
 FILLIT_OBJECTS_CWD = \
 	$(foreach ff, $(FILLIT_FILES), $(FILLIT_OBJECTS_DIR)/$(ff).o)
 FILLIT_OBJECTS_IN_FILLIT_DIR = \
-	 ${FILLIT_FILES:=.o}
+	${FILLIT_FILES:=.o}
+FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR = \
+	$(foreach ff, $(FILLIT_FILES), $(ff)$(DBGGSUFFIX).o)
+FILLIT_DEBUG_OBJECTS_CWD = \
+	$(foreach ff, ${FILLIT_FILES:=.o}, $(FILLIT_DEBUG_DIR)/$(ff))
 FILLIT_INCLUDES = $(FILLIT_SOURCES_DIR)
 LIBFT_DIR = ../libft
 LIBFT_LIB = libft.a
@@ -56,14 +61,19 @@ LIBFT_INCLUDES = $(LIBFT_DIR)
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror
-DBGGFLAGS = -g -Wconversion
+DBGGFLAGS = $(CFLAGS) -g -Wconversion
 
 DISPLAY_CURRENT_SOLUTION_DEPENDENCIES = \
 	$(LIBFT_RULE_IN_FILLIT) \
 	$(FILLIT_OBJECTS_IN_FILLIT_DIR) \
 	$(OBJ_DIR)/display_current_solution.o
 
-all: $(OBJECTS) $(FILLIT_OBJECTS_IN_FILLIT_DIR)
+DISPLAY_CURRENT_SOLUTION_DEBUG_DEPENDENCIES = \
+	$(LIBFT_RULE_IN_FILLIT) \
+	$(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR) \
+	$(OBJ_DIR)/display_current_solution.o
+
+all: $(OBJECTS) $(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR)
 	echo "all rule called"
 
 $(OBJECTS): $(SOURCES) | directories
@@ -72,8 +82,8 @@ $(OBJECTS): $(SOURCES) | directories
 		-I $(FILLIT_INCLUDES) \
 		-I $(LIBFT_INCLUDES)
 
-$(FILLIT_OBJECTS_IN_FILLIT_DIR):
-	echo "fillit object rule called"
+$(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR):
+	echo "fillit debug object rule called"
 	make -C $(FILLIT_DIR) $@
 
 $(LIBFT_RULE_IN_FILLIT):
@@ -82,8 +92,7 @@ $(LIBFT_RULE_IN_FILLIT):
 display_current_solution: $(OBJ_DIR)/display_current_solution.o | directories
 	$(CC) $(CFLAGS) -o $@.out
 
-
-display_current_solution$(DBGGSUFFIX): $(DISPLAY_CURRENT_SOLUTION_DEPENDENCIES) | directories
+display_current_solution$(DBGGSUFFIX): $(DISPLAY_CURRENT_SOLUTION_DEBUG_DEPENDENCIES) | directories
 	$(CC) $(DBGGFLAGS) -o $@.out \
 		$(FILLIT_OBJECTS_CWD) \
 		$(patsubst %$(DBGGSUFFIX), $(OBJ_DIR)/%.o, $@)	\
@@ -95,7 +104,7 @@ directories:
 	mkdir -p $(OBJ_DIR)
 
 template:
-	echo -n "$(SOURCES)"
+	echo -n "$(FILLIT_DEBUG_OBJECTS_IN_FILLIT_DEBUG_DIR)"
 
 .PHONY: all \
 	display_current_solution \
