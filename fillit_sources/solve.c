@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/02 04:19:21 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/02 04:24:57 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ uint16_t	set_index(t_tetri *tetriminoes, uint8_t board_size, \
 	}
 	if (tetriminoes->row > board_size - tetriminoes->height)
 		return ((uint16_t)(-1));
-	index = board_size * previous.row + previous.col + previous.packing_gap;
+	index = board_size * previous.row + previous.col + \
+		previous.packing_gap * (!!tetriminoes->previous);
 	while (bitarrcheck(bitarr, index))
 		index++;
 	return (index);
