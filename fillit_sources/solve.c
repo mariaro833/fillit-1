@@ -6,14 +6,18 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/03 14:30:15 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/03 19:36:22 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	display_current_board_depth(t_bitarr *bitarr, t_tetri *tetriminoes, \
+	void display_current_board_depth(t_bitarr *bitarr, t_tetri *tetriminoes, \
 	uint8_t board_size, uint8_t recursion_depth);
+	void display_current_board_depth_cursor(t_bitarr *bitarr, \
+	t_tetri *tetriminoes, uint8_t board_size, uint8_t recursion_depth, \
+	uint16_t index);
+
 
 char	*ft_strnewset(char chr, uint16_t len)
 {
@@ -44,7 +48,7 @@ uint16_t	set_index(t_tetri *tetriminoes, uint8_t board_size, \
 		previous.packing_gap * (!!tetriminoes->previous) + tetriminoes->voids;
 	tetriminoes->row = previous.row;
 	sum = previous.col + previous.packing_gap * !!tetriminoes->previous;
-	if (sum > board_size - tetriminoes->width)
+	if (sum > board_size - tetriminoes->width) //width greater than board_size?
 	{
 		tetriminoes->row++;
 		tetriminoes->col = sum % board_size;
@@ -67,7 +71,7 @@ uint16_t	set_index(t_tetri *tetriminoes, uint8_t board_size, \
 			tetriminoes->col++;
 		}
 	}
-	return (index);
+	return (index - tetriminoes->voids);
 }
 
 uint8_t	skip_index(uint16_t *index, t_tetri *tetrimino, uint16_t board_size)
@@ -94,9 +98,12 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, t_bitarr *bitarr, \
 	tetrilong = pad_short(tetriminoes->shape, (uint8_t)board_size);
 	while (skip_index(&index, tetriminoes, board_size))
 	{
+		system("clear");
+		display_current_board_depth_cursor(bitarr, tetriminoes, (uint8_t)board_size, tetriminoes->depth, index);
 		if (bitarrset(bitarr, index, tetrilong))
 		{
-			display_current_board_depth(bitarr, tetriminoes, (uint8_t)board_size, tetriminoes->depth);
+			//system("clear");
+			//display_current_board_depth(bitarr, tetriminoes, (uint8_t)board_size, tetriminoes->depth);
 			answer = solve(tetriminoes + 1, board_size, bitarr, pad_short);
 			if (answer)
 				return (place_alphabet(answer, tetrilong, index, tetriminoes));
