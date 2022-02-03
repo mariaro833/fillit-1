@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 16:49:23 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/03 13:17:53 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/03 13:56:53 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ void	display_current_board_depth(t_bitarr *bitarr, t_tetri *tetriminoes, \
 		tetriminoes++;
 	}
 	display_solution_board(board_state, board_size);
+	ft_putstr("\n");
 	free(board_state);
 }

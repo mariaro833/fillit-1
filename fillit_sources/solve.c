@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/03 13:31:52 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/03 14:30:15 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ uint16_t	set_index(t_tetri *tetriminoes, uint8_t board_size, \
 
 	previous = *(tetriminoes - tetriminoes->previous);
 	index = board_size * previous.row + previous.col + \
-		previous.packing_gap * (!!tetriminoes->previous);
+		previous.packing_gap * (!!tetriminoes->previous) + tetriminoes->voids;
 	tetriminoes->row = previous.row;
 	sum = previous.col + previous.packing_gap * !!tetriminoes->previous;
 	if (sum > board_size - tetriminoes->width)
@@ -53,15 +53,19 @@ uint16_t	set_index(t_tetri *tetriminoes, uint8_t board_size, \
 		tetriminoes->col = sum;
 	if (tetriminoes->row > board_size - tetriminoes->height)
 		return ((uint16_t)(-1));
-	while (bitarrcheck(bitarr, index + tetriminoes->voids))
+	while (bitarrcheck(bitarr, index))
 	{
-		tetriminoes->col++;
-		if (tetriminoes->col == board_size)
+		if (tetriminoes->col > board_size - tetriminoes->width)
 		{
 			tetriminoes->col = 0;
 			tetriminoes->row++;
+			index += tetriminoes->width - 1;
 		}
-		index++;
+		else
+		{
+			index++;
+			tetriminoes->col++;
+		}
 	}
 	return (index);
 }

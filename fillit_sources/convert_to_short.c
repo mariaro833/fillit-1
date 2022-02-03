@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 12:33:50 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/03 13:03:24 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/03 14:01:17 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static t_tetri	*match_binary_tetrimino(t_tetri *tetrimino)
 				tetrimino->packing_gap = tetri_ref->packing_gap;
 				return (tetrimino);
 			}
+			tetrimino->voids = 0;
 			tetri_ref++;
 		}
 	}
