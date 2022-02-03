@@ -6,7 +6,7 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 16:49:23 by thakala           #+#    #+#             */
-/*   Updated: 2022/02/02 21:12:38 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/03 13:17:53 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,31 @@ void	display_current_board_depth(t_bitarr *bitarr, t_tetri *tetriminoes, \
 	char		*board_state;
 	uint64_t	tetrilong;
 	uint16_t	index;
+	uint8_t		tetrilong_index;
 	uint8_t		hashes;
 
 	board_state = ft_strnewset('.', (uint16_t)(bitarr->len + 1));
 	board_state[bitarr->len] = '\0';
-	if (board_size > 4)
-		tetrilong = pad_short_gt_4(tetriminoes->shape, board_size);
-	else if (board_size == 4)
-		tetrilong = pad_short_eq_4(tetriminoes->shape, board_size);
-	else
-		tetrilong = pad_short_lt_4(tetriminoes->shape, board_size);
-	while (tetriminoes->depth < recursion_depth && tetriminoes->shape)
+	tetriminoes -= recursion_depth;
+	while (tetriminoes->depth <= recursion_depth && tetriminoes->shape)
 	{
+		if (board_size > 4)
+			tetrilong = pad_short_gt_4(tetriminoes->shape, board_size);
+		else if (board_size == 4)
+			tetrilong = pad_short_eq_4(tetriminoes->shape, board_size);
+		else
+			tetrilong = pad_short_lt_4(tetriminoes->shape, board_size);
 		hashes = 0;
-		index = (!tetriminoes->row + tetriminoes->row - 1) \
-			* board_size + tetriminoes->col;
+		index = tetriminoes->row * board_size + tetriminoes->col;
+		tetrilong_index = 0;
 		while (hashes < HASH_COUNT)
 		{
-			if (tetrilong & (1ULL << (ULONG_BITCOUNT - index % ULONG_BITCOUNT - 1)))
+			if (tetrilong & (1ULL << (ULONG_BITCOUNT - tetrilong_index % ULONG_BITCOUNT - 1)))
 			{
 				board_state[index] = (char)(tetriminoes->depth + 'A');
 				hashes++;
 			}
+			tetrilong_index++;
 			index++;
 		}
 		tetriminoes++;

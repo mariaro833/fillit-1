@@ -6,11 +6,14 @@
 /*   By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:31:19 by mrozhnova         #+#    #+#             */
-/*   Updated: 2022/02/02 17:07:13 by thakala          ###   ########.fr       */
+/*   Updated: 2022/02/03 13:31:52 by thakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+void	display_current_board_depth(t_bitarr *bitarr, t_tetri *tetriminoes, \
+	uint8_t board_size, uint8_t recursion_depth);
 
 char	*ft_strnewset(char chr, uint16_t len)
 {
@@ -40,7 +43,7 @@ uint16_t	set_index(t_tetri *tetriminoes, uint8_t board_size, \
 	index = board_size * previous.row + previous.col + \
 		previous.packing_gap * (!!tetriminoes->previous);
 	tetriminoes->row = previous.row;
-	sum = previous.col + previous.packing_gap;
+	sum = previous.col + previous.packing_gap * !!tetriminoes->previous;
 	if (sum > board_size - tetriminoes->width)
 	{
 		tetriminoes->row++;
@@ -50,8 +53,16 @@ uint16_t	set_index(t_tetri *tetriminoes, uint8_t board_size, \
 		tetriminoes->col = sum;
 	if (tetriminoes->row > board_size - tetriminoes->height)
 		return ((uint16_t)(-1));
-	while (bitarrcheck(bitarr, index))
+	while (bitarrcheck(bitarr, index + tetriminoes->voids))
+	{
+		tetriminoes->col++;
+		if (tetriminoes->col == board_size)
+		{
+			tetriminoes->col = 0;
+			tetriminoes->row++;
+		}
 		index++;
+	}
 	return (index);
 }
 
@@ -81,6 +92,7 @@ char	*solve(t_tetri *tetriminoes, uint16_t board_size, t_bitarr *bitarr, \
 	{
 		if (bitarrset(bitarr, index, tetrilong))
 		{
+			display_current_board_depth(bitarr, tetriminoes, (uint8_t)board_size, tetriminoes->depth);
 			answer = solve(tetriminoes + 1, board_size, bitarr, pad_short);
 			if (answer)
 				return (place_alphabet(answer, tetrilong, index, tetriminoes));
