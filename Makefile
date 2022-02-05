@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 14:43:44 by thakala           #+#    #+#              #
-#    Updated: 2022/02/05 15:12:51 by thakala          ###   ########.fr        #
+#    Updated: 2022/02/05 15:14:56 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,7 @@ $(OBJECTS_DEBUG): $(SOURCES) | debug-dir
 ## END DEBUG
 
 clean:
-	/bin/rm -f $(foreach o, $(OBJECTS), $(OBJ_DIR)/$(o))
+	/bin/rm -f $(OBJECTS)
 	make -C libft/ clean
 
 fclean: clean
