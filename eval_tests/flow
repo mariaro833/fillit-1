@@ -1,7 +1,0 @@
-read the strings
-validate the strings
-after validation:
-->declare bitarray
-->convert the tetriminos to shorts
-solve the board with the list of tetrimino shorts
-->store board state in bitarray while recursion and backtracking
