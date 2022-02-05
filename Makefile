@@ -6,7 +6,7 @@
 #    By: thakala <thakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 14:43:44 by thakala           #+#    #+#              #
-#    Updated: 2022/02/05 14:59:52 by thakala          ###   ########.fr        #
+#    Updated: 2022/02/05 15:12:51 by thakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ INCLUDE_DIRS = $(FILLIT_DIR) $(LIBFT_DIR)
 
 SOURCES = $(foreach function, $(FUNCTIONS), $(FILLIT_DIR)/$(function).c)
 
-OBJECTS = $(foreach function, $(FUNCTIONS), $(function).o)
+OBJECTS = $(foreach function, $(FUNCTIONS), $(OBJ_DIR)/$(function).o)
 
 OBJ_DIR = $(FILLIT_DIR)/objects
 
@@ -52,11 +52,11 @@ $(LIBFT):
 	make -C libft/
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(foreach o, $^, $(OBJ_DIR)/$(o)) -o $@ \
+	$(CC) $(CFLAGS) $^ -o $@ \
 		-L$(LIBFT_DIR) -lft
 
 $(OBJECTS): $(SOURCES) | directories
-	$(CC) $(CFLAGS) -c $(patsubst %.o, $(FILLIT_DIR)/%.c, $@) -o $(OBJ_DIR)/$@ \
+	$(CC) $(CFLAGS) -c $(patsubst %.o, $(FILLIT_DIR)/%.c, $(notdir $@)) -o $@ \
 		$(foreach i, $(INCLUDE_DIRS), -I$(i))
 
 directories:
@@ -101,4 +101,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all $(LIBFT) clean fclean re
+.PHONY: all $(LIBFT) clean fclean re directories
