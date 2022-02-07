@@ -48,7 +48,7 @@ Allocated the memory for the board
 
 <details><summary>BACKTRACKING ALGORITHM</summary>
 
-The smallest possible board size is determined by a 2x2 square tetromino. The size depends on the number of tetrominos.
+The smallest possible board size is determined by a 2x2 square tetromino. The size depends on the number and shape of tetrominos.
 
 1. Make sure that one piece fits on the board, and if it fits, place it on the first free space on the board. Repeat until the board is full.
 2. If the board is full and no solution has been found, remove the last piece placed on the board and try another position. Repeat until all possible positions for all tetrimino bodies have been verified.
