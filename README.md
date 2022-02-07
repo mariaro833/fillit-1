@@ -1,6 +1,6 @@
-### FILLIT
+# FILLIT
 
-#### About the project
+<details><summary>ABOUT FILLIT PROJECT</summary>
 
 Fillit is the last mandatory for everyone algorithmic project at HIVE Helsinki programming school.
 
