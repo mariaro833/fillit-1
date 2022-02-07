@@ -26,6 +26,8 @@ static int8_t	validation(t_tetri *tetrimino, char *line)
 			return (0);
 		else if ((line[i] != '#' && line[i] != '.') && i % 5 != 4)
 			return (0);
+		else if ((line[i] == '#' && line[i + 2] == '#') && i % 5 == 3)
+			return (0);
 		if (line[i] == '#')
 			++hashs;
 		i++;
