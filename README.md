@@ -1,6 +1,6 @@
 # FILLIT
 
-<details><summary>ABOUT FILLIT PROJECT</summary>
+<details open><summary>ABOUT FILLIT PROJECT</summary>
 
 Fillit is the last mandatory for everyone algorithmic project at HIVE Helsinki programming school.
 
@@ -8,7 +8,7 @@ The aim of the project is to Find the smallest square that given tetrominos fit 
 > [the subject](https://cdn.intra.42.fr/pdf/pdf/6621/fillit.en.pdf) & [a sequential chart](https://github.com/mariaro833/fillit/blob/mrozhnov/fillit-chart.pdf)
 
 
-<details><summary>TEAM</summary>
+<details open><summary>TEAM</summary>
 
 | Name | Lead in: |
 | --- | --- |
@@ -17,7 +17,7 @@ The aim of the project is to Find the smallest square that given tetrominos fit 
 
 This project was completed with Teemu Hakala and Maria Rozhnova on February 5th, 2022
 
-<details><summary>HOW IT WORKS? </summary>
+<details open><summary>HOW IT WORKS? </summary>
 
 First, the file is opened and read in its entirety. Each Tetrimino is checked to make sure it is valid.
 We decided to save each Tetrimino as a single string of bits. For this, the convert_to_short function is used.
@@ -46,7 +46,7 @@ checks if the shape of the tetrimino matches the condition (each hash must touch
 Allocated the memory for the board
 
 
-<details><summary>BACKTRACKING ALGORITHM</summary>
+<details open><summary>BACKTRACKING ALGORITHM</summary>
 
 The smallest possible board size is determined by a 2x2 square tetromino. The size depends on the number and shape of tetrominos.
 
