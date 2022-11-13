@@ -5,7 +5,7 @@
 Fillit is the last mandatory for everyone algorithmic project at HIVE Helsinki programming school.
 
 The aim of the project is to Find the smallest square that given tetrominos fit into (Hive Helsinki (42) programming school project). It’s needed to create a program that could arrange a set of 1 to 26 tetraminos in the smallest possible square and print the result. Written in C language. 
-> [the subject](https://cdn.intra.42.fr/pdf/pdf/6621/fillit.en.pdf) & [a sequential chart](https://github.com/mariaro833/fillit/blob/mrozhnov/fillit-chart.pdf)
+> [the subject](https://github.com/teemu-hakala/42-Hive-Helsinki-2019-Curriculum/blob/781c984de713b72a7a344ed82a616de557bcc021/fillit.en.pdf) & [a sequential chart](https://github.com/mariaro833/fillit/blob/mrozhnov/fillit-chart.pdf)
 
 
 <details open><summary>TEAM</summary>
