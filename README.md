@@ -28,21 +28,21 @@ Then, according to the algorithm, we add each tetrimino to the bitarray.
 Since our tetrimino has an initial size of 4X4, we need to match it to the size of the board by padding it with zeroes. This is what [pad_short.c](./fillit_sources/pad_short.c) does.
 Then we check for overlap with bitwise AND, &, and if it occurs, move on to the next index.
 With the help of the [skip_index](./fillit_sources/solve.c) function, we check if there is enough space to place the tetrimino by comparing the current length and height of the board with the dimensions of the tetrimino.
-In the [solve.c](./fillit_sources/solve.c), the algorithm described below is executed, and with the help of [place_alpabet.c](./fillit_sources/alpabet.c), the board is filling with tetriminoes with letter designations. And [fillit.c](./fillit_sources/fillit.c) transfers the resulting solution to [main.c](./fillit_sources/main.c).
+In the [solve.c](./fillit_sources/solve.c), the algorithm described below is executed, and with the help of [place_alphabet.c](./fillit_sources/place_alphabet.c), the board is filling with tetriminoes with letter designations. And [fillit.c](./fillit_sources/fillit.c) transfers the resulting solution to [main.c](./fillit_sources/main.c).
 
-> [get_tetriminoes.c](./fillit_sources/get_tetrimino.c):
+> [get_tetriminoes.c](./fillit_sources/get_tetriminoes.c):
 Checks for the correct size of one square (4x4) (there must be a '\n' at the end).
 Checks for only valid characters ('.', '#').
 Counts the number of '#' characters (there must be only 4 hashtags)
 Checks for '\n' at the end of the file and at the end of each square.
 
-> [convert_to_short.c](./fillit_sources/short.c) 
+> [convert_to_short.c](./fillit_sources/convert_to_short.c) 
 the function converts the string to a bitstring
 
 > [tetrimino_reference.c](./fillit_sources/tetrimino_reference.c) 
 checks if the shape of the tetrimino matches the condition (each hash must touch one side of the other
 
-> [bitarray.c](./mrozhnov/fillit_sources/bitarray.c) 
+> [bitarray.c](./fillit_sources/bitarray.c) 
 Allocated the memory for the board
 
 
